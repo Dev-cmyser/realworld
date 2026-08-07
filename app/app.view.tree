@@ -1,11 +1,11 @@
 $realworld_app $mol_view
 	title \Conduit
+	attr *
+		^
+		mol_theme \$mol_theme_light
 	sub /
-		<= Banner $mol_view
-			sub /
-				<= Logo $mol_view
-					sub /
-						\conduit
-				<= Slogan $mol_view
-					sub /
-						\A place to share your knowledge.
+		<= Nav $realworld_app_nav
+		<= Body $mol_view
+			sub <= body /
+		<= Foot $realworld_app_footer
+	Home $realworld_app_home

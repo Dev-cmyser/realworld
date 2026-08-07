@@ -1,0 +1,5 @@
+$realworld_app_link $mol_link
+	active false
+	attr *
+		^
+		realworld_active <= active

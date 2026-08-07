@@ -5,33 +5,24 @@ namespace $.$$ {
 		flex: {
 			direction: 'column',
 		},
+		minHeight: '100vh',
+		minWidth: 0,
+		background: {
+			color: 'white',
+		},
+		color: $realworld_app_theme.text,
+		font: {
+			family: $realworld_app_theme.body,
+			size: '16px',
+		},
+		lineHeight: '1.5',
 
-		Banner: {
+		Body: {
 			flex: {
 				direction: 'column',
+				grow: 1,
 			},
-			align: {
-				items: 'center',
-			},
-			padding: '2rem',
-			background: {
-				color: '#5cb85c',
-			},
-			color: '#ffffff',
-		},
-
-		Logo: {
-			font: {
-				size: '3.5rem',
-				weight: 700,
-			},
-		},
-
-		Slogan: {
-			font: {
-				size: '1.5rem',
-				weight: 300,
-			},
+			minWidth: 0,
 		},
 
 	} )

@@ -1,0 +1,52 @@
+$realworld_app_nav $mol_view
+	dom_name \nav
+	sub /
+		<= Inner $mol_view
+			sub /
+				<= Brand $realworld_app_link
+					arg *
+					sub /
+						\conduit
+				<= Menu $mol_view
+					sub <= menu /
+	Home_link $realworld_app_link
+		arg *
+		active <= home_active false
+		sub /
+			\Home
+	Signin_link $realworld_app_link
+		arg *
+			page \login
+		active <= signin_active false
+		sub /
+			\Sign in
+	Signup_link $realworld_app_link
+		arg *
+			page \register
+		active <= signup_active false
+		sub /
+			\Sign up
+	Editor_link $realworld_app_link
+		arg *
+			page \editor
+		active <= editor_active false
+		sub /
+			<= Editor_icon $mol_icon_plus
+			\ New Article
+	Settings_link $realworld_app_link
+		arg *
+			page \settings
+		active <= settings_active false
+		sub /
+			<= Settings_icon $mol_icon_settings
+			\ Settings
+	Profile_link $realworld_app_link
+		arg *
+			page \profile
+			user <= username \
+		active <= profile_active false
+		sub /
+			<= Avatar $mol_image
+				uri <= avatar \
+				title <= username
+			<= username

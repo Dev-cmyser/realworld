@@ -1,0 +1,47 @@
+$realworld_app_home $mol_view
+	sub /
+		<= Banner $mol_view
+			sub /
+				<= Logo $mol_view
+					dom_name \h1
+					sub /
+						\conduit
+				<= Slogan $mol_view
+					dom_name \p
+					sub /
+						\A place to share your knowledge.
+		<= Container $mol_view
+			sub /
+				<= Feed $realworld_app_feed
+					mode <= feed_mode \global
+					tabs <= feed_tabs /
+				<= Sidebar $mol_view
+					sub /
+						<= Sidebar_title $mol_view
+							dom_name \p
+							sub /
+								\Popular Tags
+						<= Tag_list $mol_view
+							sub <= tag_links /
+	Feed_tab $realworld_app_link
+		arg *
+			tab \following
+		active <= feed_active false
+		sub /
+			\Your Feed
+	Global_tab $realworld_app_link
+		arg *
+		active <= global_active false
+		sub /
+			\Global Feed
+	Tag_tab $realworld_app_link
+		arg *
+			tag <= tag \
+		active true
+		sub /
+			<= tag_tab_title \
+	Tag_link* $realworld_app_link
+		arg *
+			tag <= tag_name* \
+		sub /
+			<= tag_name*

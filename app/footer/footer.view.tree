@@ -1,0 +1,19 @@
+$realworld_app_footer $mol_view
+	dom_name \footer
+	sub /
+		<= Inner $mol_view
+			sub /
+				<= Brand $realworld_app_link
+					arg *
+					sub /
+						\conduit
+				<= Note $mol_view
+					dom_name \span
+					sub /
+						\An interactive learning project from
+						<= Source $mol_link
+							uri \https://thinkster.io
+							target \_blank
+							sub /
+								\Thinkster
+						\. Code & design licensed under MIT.

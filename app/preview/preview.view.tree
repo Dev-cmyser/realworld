@@ -1,0 +1,52 @@
+$realworld_app_preview $mol_view
+	article null
+	sub /
+		<= Meta $mol_view
+			sub /
+				<= Author_pic $realworld_app_link
+					arg *
+						page \profile
+						user <= author \
+					sub /
+						<= Avatar $mol_image
+							uri <= author_image \
+							title <= author
+				<= Info $mol_view
+					sub /
+						<= Author_link $realworld_app_link
+							arg *
+								page \profile
+								user <= author
+							sub /
+								<= author
+						<= Date $mol_view
+							sub /
+								<= date \
+				<= Favorite $mol_view
+					sub /
+						<= Favorite_icon $mol_icon_heart
+						<= favorites_count \
+		<= Link $realworld_app_link
+			arg *
+				page \article
+				slug <= slug \
+			sub /
+				<= Title $mol_view
+					dom_name \h1
+					sub /
+						<= title \
+				<= Description $mol_view
+					dom_name \p
+					sub /
+						<= description \
+				<= Bottom $mol_view
+					sub /
+						<= More $mol_view
+							sub /
+								\Read more...
+						<= Tags $mol_view
+							sub <= tag_pills /
+	Tag* $mol_view
+		dom_name \span
+		sub /
+			<= tag_name* \

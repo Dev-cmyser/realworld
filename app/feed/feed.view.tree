@@ -1,0 +1,21 @@
+$realworld_app_feed $mol_view
+	mode \global
+	author \
+	tabs /
+	sub /
+		<= Toggle $mol_view
+			sub <= tabs
+		<= List $mol_list
+			rows <= rows /
+		<= Pages $mol_view
+			sub <= page_links /
+	Preview* $realworld_app_preview
+		article <= article* null
+	Empty $mol_view
+		sub /
+			\No articles are here... yet.
+	Page_link* $realworld_app_link
+		arg <= page_arg* *
+		active <= page_active* false
+		sub /
+			<= page_label* \
