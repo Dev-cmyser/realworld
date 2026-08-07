@@ -6,6 +6,7 @@ namespace $.$$ {
 			direction: 'column',
 		},
 		minWidth: 0,
+		flexShrink: '1',
 		margin: {
 			bottom: '.75rem',
 		},
@@ -19,11 +20,13 @@ namespace $.$$ {
 		Body: {
 			padding: '1rem',
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Text: {
 			margin: 0,
 			minWidth: 0,
+			flexShrink: '1',
 			wordBreak: 'break-word',
 		},
 
@@ -55,6 +58,7 @@ namespace $.$$ {
 				size: '.8rem',
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Avatar: {
@@ -90,11 +94,14 @@ namespace $.$$ {
 				content: 'flex-end',
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Delete: {
 			padding: '.2rem',
 			minHeight: 0,
+			minWidth: 0,
+			flexShrink: '1',
 			background: {
 				color: 'transparent',
 			},

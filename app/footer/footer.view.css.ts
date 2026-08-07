@@ -42,9 +42,7 @@ namespace $.$$ {
 			display: 'block',
 			// Without this the note keeps its max-content width and overflows narrow screens.
 			minWidth: 0,
-			flex: {
-				shrink: 1,
-			},
+			flexShrink: '1',
 			color: $realworld_app_theme.pill,
 			font: {
 				size: '.8rem',

@@ -6,6 +6,7 @@ namespace $.$$ {
 			direction: 'column',
 		},
 		minWidth: 0,
+		flexShrink: '1',
 
 		Banner: {
 			padding: {
@@ -32,6 +33,7 @@ namespace $.$$ {
 			},
 			gap: '1.5rem',
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Title: {
@@ -43,6 +45,7 @@ namespace $.$$ {
 			},
 			lineHeight: '1.1',
 			minWidth: 0,
+			flexShrink: '1',
 			wordBreak: 'break-word',
 		},
 
@@ -64,6 +67,7 @@ namespace $.$$ {
 			},
 			gap: '1.5rem',
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Body: {
@@ -72,6 +76,7 @@ namespace $.$$ {
 			},
 			lineHeight: '1.8',
 			minWidth: 0,
+			flexShrink: '1',
 			wordBreak: 'break-word',
 
 			$mol_text_header: {
@@ -95,6 +100,7 @@ namespace $.$$ {
 				wrap: 'wrap',
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Tag: {
@@ -144,6 +150,7 @@ namespace $.$$ {
 			},
 			gap: '1rem',
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Comment_box: {
@@ -151,6 +158,7 @@ namespace $.$$ {
 				direction: 'column',
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Form: {
@@ -164,12 +172,14 @@ namespace $.$$ {
 			},
 			borderRadius: '4px',
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Comment_text: {
 			padding: '1rem',
 			minHeight: '6rem',
 			minWidth: 0,
+			flexShrink: '1',
 			border: {
 				width: 0,
 			},
@@ -210,6 +220,7 @@ namespace $.$$ {
 				},
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Comment_avatar: {
@@ -259,10 +270,12 @@ namespace $.$$ {
 			},
 			color: $realworld_app_theme.meta,
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Comment_list: {
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		'@media': {

@@ -6,6 +6,7 @@ namespace $.$$ {
 			direction: 'column',
 		},
 		minWidth: 0,
+		flexShrink: '1',
 		padding: {
 			top: '1.5rem',
 			bottom: '1.5rem',
@@ -27,6 +28,7 @@ namespace $.$$ {
 				bottom: '1rem',
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Avatar: {
@@ -44,6 +46,7 @@ namespace $.$$ {
 			},
 			lineHeight: '1',
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Author_link: {
@@ -127,6 +130,7 @@ namespace $.$$ {
 			},
 			color: 'inherit',
 			minWidth: 0,
+			flexShrink: '1',
 			':hover': {
 				textDecoration: 'none',
 			},
@@ -166,6 +170,7 @@ namespace $.$$ {
 				wrap: 'wrap',
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		More: {
@@ -185,6 +190,7 @@ namespace $.$$ {
 				content: 'flex-end',
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Tag: {

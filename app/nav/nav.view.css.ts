@@ -12,6 +12,8 @@ namespace $.$$ {
 
 		Inner: {
 			width: '100%',
+			minWidth: 0,
+			flexShrink: '1',
 			maxWidth: '1140px',
 			margin: {
 				left: 'auto',
@@ -34,6 +36,8 @@ namespace $.$$ {
 		},
 
 		Menu: {
+			minWidth: 0,
+			flexShrink: '1',
 			gap: '1rem',
 			align: {
 				items: 'center',

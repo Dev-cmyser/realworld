@@ -6,6 +6,7 @@ namespace $.$$ {
 			direction: 'column',
 		},
 		minWidth: 0,
+		flexShrink: '1',
 
 		Container: {
 			width: '100%',
@@ -25,6 +26,7 @@ namespace $.$$ {
 			},
 			gap: '1rem',
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Title: {
@@ -60,6 +62,7 @@ namespace $.$$ {
 				weight: 700,
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Fields: {
@@ -68,6 +71,7 @@ namespace $.$$ {
 			},
 			gap: '1rem',
 			minWidth: 0,
+			flexShrink: '1',
 
 			$mol_string: {
 				padding: {
@@ -90,6 +94,7 @@ namespace $.$$ {
 					size: '1.15rem',
 				},
 				minWidth: 0,
+				flexShrink: '1',
 				minHeight: 0,
 				':focus': {
 					outline: 'none',

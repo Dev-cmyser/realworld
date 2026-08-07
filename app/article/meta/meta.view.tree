@@ -26,6 +26,18 @@ $realworld_app_article_meta $mol_view
 						<= date \
 		<= Actions $mol_view
 			sub <= actions /
+	Edit $realworld_app_link
+		arg *
+			page \editor
+			slug <= slug \
+		sub /
+			<= Edit_icon $mol_icon_edit
+			\ Edit Article
+	Delete $realworld_app_button
+		click? <=> delete? null
+		sub /
+			<= Delete_icon $mol_icon_trash_can
+			\ Delete Article
 	Follow $realworld_app_button
 		click? <=> follow? null
 		title <= follow_title \

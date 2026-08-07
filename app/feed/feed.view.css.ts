@@ -6,6 +6,7 @@ namespace $.$$ {
 			direction: 'column',
 		},
 		minWidth: 0,
+		flexShrink: '1',
 
 		Toggle: {
 			gap: '1rem',
@@ -58,6 +59,7 @@ namespace $.$$ {
 
 		List: {
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Empty: {

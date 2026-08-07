@@ -10,6 +10,7 @@ namespace $.$$ {
 			wrap: 'wrap',
 		},
 		minWidth: 0,
+		flexShrink: '1',
 
 		Avatar: {
 			width: '32px',
@@ -25,6 +26,7 @@ namespace $.$$ {
 			},
 			lineHeight: '1',
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Author_link: {
@@ -57,6 +59,7 @@ namespace $.$$ {
 				left: '.4rem',
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		// Follow and Favorite share the outline-until-active look.
@@ -136,6 +139,62 @@ namespace $.$$ {
 			fill: 'currentcolor',
 		},
 
+		Edit: {
+			gap: '.3rem',
+			align: {
+				items: 'center',
+			},
+			padding: {
+				top: '.25rem',
+				bottom: '.25rem',
+				left: '.6rem',
+				right: '.6rem',
+			},
+			border: {
+				width: '1px',
+				style: 'solid',
+				color: $realworld_app_theme.pill,
+			},
+			borderRadius: '.2rem',
+			color: $realworld_app_theme.pill,
+			font: {
+				size: '.85rem',
+			},
+			whiteSpace: 'nowrap',
+			':hover': {
+				background: {
+					color: $realworld_app_theme.pill,
+				},
+				color: 'white',
+				textDecoration: 'none',
+			},
+		},
+
+		Delete: {
+			border: {
+				color: $realworld_app_theme.danger,
+			},
+			color: $realworld_app_theme.danger,
+			':hover': {
+				background: {
+					color: $realworld_app_theme.danger,
+				},
+				color: 'white',
+			},
+		},
+
+		Edit_icon: {
+			width: '.9rem',
+			height: '.9rem',
+			fill: 'currentcolor',
+		},
+
+		Delete_icon: {
+			width: '.9rem',
+			height: '.9rem',
+			fill: 'currentcolor',
+		},
+
 		// Same strip on the dark article banner.
 		'@': {
 			realworld_dark: {
@@ -146,8 +205,20 @@ namespace $.$$ {
 					Date: {
 						color: '#ffffff80',
 					},
-					// Favorite keeps its green on the dark banner, Follow goes white.
+					// Favorite keeps its green on the dark banner; the neutral ones go white.
 					Follow: {
+						border: {
+							color: '#ffffff80',
+						},
+						color: 'white',
+						':hover': {
+							background: {
+								color: 'white',
+							},
+							color: '#333333',
+						},
+					},
+					Edit: {
 						border: {
 							color: '#ffffff80',
 						},

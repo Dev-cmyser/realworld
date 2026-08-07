@@ -12,3 +12,5 @@ $realworld_app $mol_view
 	Article $realworld_app_article
 	Auth $realworld_app_auth
 	Settings $realworld_app_settings
+	Editor $realworld_app_editor
+	Profile $realworld_app_profile

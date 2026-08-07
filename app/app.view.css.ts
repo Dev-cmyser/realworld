@@ -10,6 +10,7 @@ namespace $.$$ {
 		height: 'auto',
 		minHeight: '100vh',
 		minWidth: 0,
+		flexShrink: '1',
 		background: {
 			color: 'white',
 		},
@@ -26,6 +27,7 @@ namespace $.$$ {
 				grow: 1,
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 	} )

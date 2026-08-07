@@ -35,12 +35,21 @@ namespace $.$$ {
 			return `${ this.favorited() ? 'Unfavorite' : 'Favorite' } Article (${ this.article().favoritesCount })`
 		}
 
-		/** Your own article gets editing controls from the page instead. */
+		override slug() {
+			return this.article().slug
+		}
+
 		@ $mol_mem
 		override actions(): readonly $mol_view[] {
 			const user = this.$.$realworld_api.user()
-			if( user && user.username === this.author() ) return []
+			if( user && user.username === this.author() ) return [ this.Edit(), this.Delete() ]
 			return [ this.Follow(), this.Favorite() ]
+		}
+
+		@ $mol_action
+		override delete( next?: any ) {
+			this.$.$realworld_api.article_delete( this.slug() )
+			this.$.$mol_state_arg.go( $realworld_app_route() )
 		}
 
 		@ $mol_action

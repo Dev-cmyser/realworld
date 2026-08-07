@@ -6,6 +6,7 @@ namespace $.$$ {
 			direction: 'column',
 		},
 		minWidth: 0,
+		flexShrink: '1',
 
 		Banner: {
 			flex: {
@@ -67,14 +68,15 @@ namespace $.$$ {
 				items: 'flex-start',
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Feed: {
 			flex: {
 				grow: 1,
-				shrink: 1,
 			},
 			minWidth: 0,
+			flexShrink: '1',
 		},
 
 		Sidebar: {

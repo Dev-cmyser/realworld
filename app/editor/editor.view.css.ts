@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	$mol_style_define( $realworld_app_settings, {
+	$mol_style_define( $realworld_app_editor, {
 
 		flex: {
 			direction: 'column',
@@ -10,7 +10,7 @@ namespace $.$$ {
 
 		Container: {
 			width: '100%',
-			maxWidth: '540px',
+			maxWidth: '740px',
 			margin: {
 				left: 'auto',
 				right: 'auto',
@@ -27,20 +27,6 @@ namespace $.$$ {
 			gap: '1rem',
 			minWidth: 0,
 			flexShrink: '1',
-		},
-
-		Title: {
-			margin: 0,
-			textAlign: 'center',
-			justify: {
-				content: 'center',
-			},
-			font: {
-				family: $realworld_app_theme.head,
-				size: '2.5rem',
-				weight: 500,
-			},
-			color: $realworld_app_theme.text,
 		},
 
 		Errors: {
@@ -68,10 +54,10 @@ namespace $.$$ {
 
 			$mol_string: {
 				padding: {
-					top: '.75rem',
-					bottom: '.75rem',
-					left: '1.2rem',
-					right: '1.2rem',
+					top: '.7rem',
+					bottom: '.7rem',
+					left: '1.1rem',
+					right: '1.1rem',
 				},
 				border: {
 					width: '1px',
@@ -83,9 +69,6 @@ namespace $.$$ {
 					color: 'white',
 				},
 				color: $realworld_app_theme.text,
-				font: {
-					size: '1.15rem',
-				},
 				minWidth: 0,
 				flexShrink: '1',
 				minHeight: 0,
@@ -98,13 +81,68 @@ namespace $.$$ {
 			},
 		},
 
-		Bio: {
-			minHeight: '8rem',
+		Head: {
+			font: {
+				size: '1.25rem',
+			},
+		},
+
+		Body: {
+			minHeight: '14rem',
 			lineHeight: '1.5',
 			resize: 'vertical',
 		},
 
-		Submit: {
+		Tags: {
+			gap: '.3rem',
+			flex: {
+				wrap: 'wrap',
+			},
+			minWidth: 0,
+			flexShrink: '1',
+		},
+
+		Tag: {
+			gap: '.2rem',
+			align: {
+				items: 'center',
+			},
+			padding: {
+				top: '.15rem',
+				bottom: '.15rem',
+				left: '.6rem',
+				right: '.6rem',
+			},
+			borderRadius: '10rem',
+			background: {
+				color: $realworld_app_theme.pill,
+			},
+			color: 'white',
+			font: {
+				size: '.85rem',
+			},
+			whiteSpace: 'nowrap',
+		},
+
+		Tag_remove: {
+			padding: 0,
+			minHeight: 0,
+			// $mol sizes buttons for touch; an inline icon must not reserve that width.
+			minWidth: 0,
+			flexShrink: '1',
+			background: {
+				color: 'transparent',
+			},
+			color: 'white',
+		},
+
+		Tag_remove_icon: {
+			width: '.8rem',
+			height: '.8rem',
+			fill: 'currentcolor',
+		},
+
+		Publish: {
 			align: {
 				self: 'flex-end',
 			},
@@ -131,42 +169,6 @@ namespace $.$$ {
 				background: {
 					color: $realworld_app_theme.brand_dark,
 				},
-			},
-		},
-
-		Divider: {
-			height: '1px',
-			minHeight: '1px',
-			background: {
-				color: '#00000019',
-			},
-		},
-
-		Logout: {
-			align: {
-				self: 'flex-start',
-			},
-			padding: {
-				top: '.5rem',
-				bottom: '.5rem',
-				left: '1rem',
-				right: '1rem',
-			},
-			border: {
-				width: '1px',
-				style: 'solid',
-				color: $realworld_app_theme.danger,
-			},
-			borderRadius: '.3rem',
-			background: {
-				color: 'transparent',
-			},
-			color: $realworld_app_theme.danger,
-			':hover': {
-				background: {
-					color: $realworld_app_theme.danger,
-				},
-				color: 'white',
 			},
 		},
 

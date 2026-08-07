@@ -16,8 +16,10 @@ namespace $.$$ {
 				case 'article': return [ this.Article() ]
 				case 'login': return [ this.Auth() ]
 				case 'register': return [ this.Auth() ]
+				case 'profile': return [ this.Profile() ]
 				// Pages that need an account fall back to the sign in form.
 				case 'settings': return this.user() ? [ this.Settings() ] : [ this.Auth() ]
+				case 'editor': return this.user() ? [ this.Editor() ] : [ this.Auth() ]
 				default: return [ this.Home() ]
 			}
 		}

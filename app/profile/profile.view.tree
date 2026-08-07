@@ -1,0 +1,50 @@
+$realworld_app_profile $mol_view
+	sub /
+		<= Banner $mol_view
+			sub /
+				<= Banner_inner $mol_view
+					sub /
+						<= Avatar $mol_image
+							uri <= image \
+							title <= username \
+						<= Name $mol_view
+							dom_name \h4
+							sub /
+								<= username
+						<= Bio $mol_view
+							dom_name \p
+							sub /
+								<= bio \
+						<= Actions $mol_view
+							sub <= actions /
+		<= Container $mol_view
+			sub /
+				<= Feed $realworld_app_feed
+					mode <= feed_mode \author
+					author <= username
+					tabs <= feed_tabs /
+	Follow $realworld_app_button
+		click? <=> follow? null
+		title <= follow_title \
+		active <= following false
+	Edit $realworld_app_link
+		arg *
+			page \settings
+		sub /
+			<= Edit_icon $mol_icon_settings
+			\ Edit Profile Settings
+	Mine_tab $realworld_app_link
+		arg *
+			page \profile
+			user <= username
+		active <= mine_active false
+		sub /
+			\My Articles
+	Fav_tab $realworld_app_link
+		arg *
+			page \profile
+			user <= username
+			tab \favorites
+		active <= fav_active false
+		sub /
+			\Favorited Articles

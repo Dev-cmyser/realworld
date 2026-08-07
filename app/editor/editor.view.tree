@@ -1,0 +1,52 @@
+$realworld_app_editor $mol_view
+	sub /
+		<= Container $mol_view
+			sub /
+				<= Errors $mol_view
+					dom_name \ul
+					sub <= error_rows /
+				<= Fields $mol_view
+					sub /
+						<= Head $mol_string
+							hint \Article Title
+							value? <=> form_title? \
+							attr *
+								^
+								name \title
+						<= About $mol_string
+							hint \What's this article about?
+							value? <=> form_about? \
+							attr *
+								^
+								name \description
+						<= Body $realworld_app_area
+							hint \Write your article (in markdown)
+							value? <=> form_body? \
+							attr *
+								^
+								name \body
+						<= Tag_field $mol_string
+							hint \Enter tags
+							value? <=> tag_draft? \
+							submit? <=> tag_add? null
+							attr *
+								^
+								name \tags
+						<= Tags $mol_view
+							sub <= tag_pills /
+				<= Publish $mol_button_major
+					click? <=> submit? null
+					title <= submit_title \
+	Tag* $mol_view
+		dom_name \span
+		sub /
+			<= Tag_remove* $realworld_app_button
+				click? <=> tag_remove*? null
+				hint \Remove tag
+				sub /
+					<= Tag_remove_icon* $mol_icon_close
+			<= tag_name* \
+	Error* $mol_view
+		dom_name \li
+		sub /
+			<= error_text* \

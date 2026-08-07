@@ -141,6 +141,25 @@ namespace $ {
 			throw new $realworld_api_error( response.code(), ( data as { errors: $realworld_api_errors } )?.errors )
 		}
 
+		/**
+		 * Mutating request. A token the server rejects here is spent — tokens can be
+		 * revoked or rotated server side — so drop it and fall back to signed out
+		 * instead of leaving the app looking signed in.
+		 */
+		@ $mol_action
+		static send( method: string, path: string, body?: unknown ): unknown {
+			try {
+				return this.call( method, path, body )
+			} catch( error ) {
+				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
+				if( error instanceof $realworld_api_error && error.code === 401 && this.token() ) {
+					this.token( null )
+					this.refresh()
+				}
+				return $mol_fail_hidden( error )
+			}
+		}
+
 		/** Cached GET. The token is read so that `favorited`/`following` flags refresh on sign in. */
 		@ $mol_mem_key
 		static get( path: string ): unknown {
@@ -213,14 +232,14 @@ namespace $ {
 
 		@ $mol_action
 		static login( email: string, password: string ) {
-			const data = this.call( 'POST', '/users/login', { user: { email, password } } ) as { user: $realworld_api_user }
+			const data = this.send( 'POST', '/users/login', { user: { email, password } } ) as { user: $realworld_api_user }
 			this.token( data.user.token )
 			return data.user
 		}
 
 		@ $mol_action
 		static register( username: string, email: string, password: string ) {
-			const data = this.call( 'POST', '/users', { user: { username, email, password } } ) as { user: $realworld_api_user }
+			const data = this.send( 'POST', '/users', { user: { username, email, password } } ) as { user: $realworld_api_user }
 			this.token( data.user.token )
 			return data.user
 		}
@@ -233,7 +252,7 @@ namespace $ {
 
 		@ $mol_action
 		static user_update( patch: $realworld_api_patch ) {
-			const data = this.call( 'PUT', '/user', { user: patch } ) as { user: $realworld_api_user }
+			const data = this.send( 'PUT', '/user', { user: patch } ) as { user: $realworld_api_user }
 			this.token( data.user.token )
 			this.refresh()
 			return data.user
@@ -243,27 +262,27 @@ namespace $ {
 
 		@ $mol_action
 		static article_create( draft: $realworld_api_draft ) {
-			const data = this.call( 'POST', '/articles', { article: draft } ) as { article: $realworld_api_article }
+			const data = this.send( 'POST', '/articles', { article: draft } ) as { article: $realworld_api_article }
 			this.refresh()
 			return data.article
 		}
 
 		@ $mol_action
 		static article_update( slug: string, draft: Partial< $realworld_api_draft > ) {
-			const data = this.call( 'PUT', `/articles/${ encodeURIComponent( slug ) }`, { article: draft } ) as { article: $realworld_api_article }
+			const data = this.send( 'PUT', `/articles/${ encodeURIComponent( slug ) }`, { article: draft } ) as { article: $realworld_api_article }
 			this.refresh()
 			return data.article
 		}
 
 		@ $mol_action
 		static article_delete( slug: string ) {
-			this.call( 'DELETE', `/articles/${ encodeURIComponent( slug ) }` )
+			this.send( 'DELETE', `/articles/${ encodeURIComponent( slug ) }` )
 			this.refresh()
 		}
 
 		@ $mol_action
 		static favorite( slug: string, next: boolean ) {
-			const data = this.call(
+			const data = this.send(
 				next ? 'POST' : 'DELETE',
 				`/articles/${ encodeURIComponent( slug ) }/favorite`,
 			) as { article: $realworld_api_article }
@@ -273,7 +292,7 @@ namespace $ {
 
 		@ $mol_action
 		static follow( username: string, next: boolean ) {
-			const data = this.call(
+			const data = this.send(
 				next ? 'POST' : 'DELETE',
 				`/profiles/${ encodeURIComponent( username ) }/follow`,
 			) as { profile: $realworld_api_profile }
@@ -283,7 +302,7 @@ namespace $ {
 
 		@ $mol_action
 		static comment_create( slug: string, body: string ) {
-			const data = this.call(
+			const data = this.send(
 				'POST',
 				`/articles/${ encodeURIComponent( slug ) }/comments`,
 				{ comment: { body } },
@@ -294,7 +313,7 @@ namespace $ {
 
 		@ $mol_action
 		static comment_delete( slug: string, id: number ) {
-			this.call( 'DELETE', `/articles/${ encodeURIComponent( slug ) }/comments/${ id }` )
+			this.send( 'DELETE', `/articles/${ encodeURIComponent( slug ) }/comments/${ id }` )
 			this.refresh()
 		}
 
