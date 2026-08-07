@@ -1,0 +1,6 @@
+- Button with an on/off look. The attribute lives here so styles can be typed against it.
+$realworld_app_button $mol_button_minor
+	active false
+	attr *
+		^
+		realworld_on <= active

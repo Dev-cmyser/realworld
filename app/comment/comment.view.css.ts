@@ -92,6 +92,24 @@ namespace $.$$ {
 			minWidth: 0,
 		},
 
+		Delete: {
+			padding: '.2rem',
+			minHeight: 0,
+			background: {
+				color: 'transparent',
+			},
+			color: $realworld_app_theme.muted,
+			':hover': {
+				color: $realworld_app_theme.danger,
+			},
+		},
+
+		Delete_icon: {
+			width: '.9rem',
+			height: '.9rem',
+			fill: 'currentcolor',
+		},
+
 	} )
 
 }

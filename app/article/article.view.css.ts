@@ -139,6 +139,129 @@ namespace $.$$ {
 				left: 'auto',
 				right: 'auto',
 			},
+			flex: {
+				direction: 'column',
+			},
+			gap: '1rem',
+			minWidth: 0,
+		},
+
+		Comment_box: {
+			flex: {
+				direction: 'column',
+			},
+			minWidth: 0,
+		},
+
+		Form: {
+			flex: {
+				direction: 'column',
+			},
+			border: {
+				width: '1px',
+				style: 'solid',
+				color: '#00000019',
+			},
+			borderRadius: '4px',
+			minWidth: 0,
+		},
+
+		Comment_text: {
+			padding: '1rem',
+			minHeight: '6rem',
+			minWidth: 0,
+			border: {
+				width: 0,
+			},
+			borderRadius: '0',
+			background: {
+				color: 'white',
+			},
+			color: $realworld_app_theme.text,
+			lineHeight: '1.5',
+			resize: 'vertical',
+			':focus': {
+				outline: 'none',
+			},
+		},
+
+		Form_foot: {
+			gap: '.5rem',
+			align: {
+				items: 'center',
+			},
+			justify: {
+				content: 'space-between',
+			},
+			padding: {
+				top: '.6rem',
+				bottom: '.6rem',
+				left: '1rem',
+				right: '1rem',
+			},
+			background: {
+				color: '#f5f5f5',
+			},
+			border: {
+				top: {
+					width: '1px',
+					style: 'solid',
+					color: '#00000019',
+				},
+			},
+			minWidth: 0,
+		},
+
+		Comment_avatar: {
+			width: '30px',
+			height: '30px',
+			minWidth: '30px',
+			borderRadius: '50%',
+			objectFit: 'cover',
+		},
+
+		Post: {
+			padding: {
+				top: '.4rem',
+				bottom: '.4rem',
+				left: '.9rem',
+				right: '.9rem',
+			},
+			border: {
+				width: '1px',
+				style: 'solid',
+				color: $realworld_app_theme.brand,
+			},
+			borderRadius: '.2rem',
+			background: {
+				color: $realworld_app_theme.brand,
+			},
+			color: 'white',
+			font: {
+				size: '.85rem',
+			},
+			minHeight: 0,
+			whiteSpace: 'nowrap',
+			':hover': {
+				background: {
+					color: $realworld_app_theme.brand_dark,
+				},
+			},
+		},
+
+		Guest_note: {
+			gap: '.25rem',
+			flex: {
+				wrap: 'wrap',
+			},
+			align: {
+				items: 'baseline',
+			},
+			color: $realworld_app_theme.meta,
+			minWidth: 0,
+		},
+
+		Comment_list: {
 			minWidth: 0,
 		},
 

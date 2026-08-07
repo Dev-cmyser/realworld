@@ -59,6 +59,83 @@ namespace $.$$ {
 			minWidth: 0,
 		},
 
+		// Follow and Favorite share the outline-until-active look.
+		$realworld_app_button: {
+			gap: '.3rem',
+			align: {
+				items: 'center',
+			},
+			padding: {
+				top: '.25rem',
+				bottom: '.25rem',
+				left: '.6rem',
+				right: '.6rem',
+			},
+			border: {
+				width: '1px',
+				style: 'solid',
+				color: $realworld_app_theme.pill,
+			},
+			borderRadius: '.2rem',
+			background: {
+				color: 'transparent',
+			},
+			color: $realworld_app_theme.pill,
+			font: {
+				size: '.85rem',
+			},
+			minHeight: 0,
+			whiteSpace: 'nowrap',
+			':hover': {
+				background: {
+					color: $realworld_app_theme.pill,
+				},
+				color: 'white',
+			},
+			'@': {
+				realworld_on: {
+					true: {
+						background: {
+							color: $realworld_app_theme.pill,
+						},
+						color: 'white',
+					},
+				},
+			},
+		},
+
+		Favorite: {
+			border: {
+				color: $realworld_app_theme.brand,
+			},
+			color: $realworld_app_theme.brand,
+			':hover': {
+				background: {
+					color: $realworld_app_theme.brand,
+				},
+				color: 'white',
+			},
+			'@': {
+				realworld_on: {
+					true: {
+						background: {
+							color: $realworld_app_theme.brand,
+						},
+						border: {
+							color: $realworld_app_theme.brand,
+						},
+						color: 'white',
+					},
+				},
+			},
+		},
+
+		Favorite_icon: {
+			width: '.9rem',
+			height: '.9rem',
+			fill: 'currentcolor',
+		},
+
 		// Same strip on the dark article banner.
 		'@': {
 			realworld_dark: {
@@ -68,6 +145,19 @@ namespace $.$$ {
 					},
 					Date: {
 						color: '#ffffff80',
+					},
+					// Favorite keeps its green on the dark banner, Follow goes white.
+					Follow: {
+						border: {
+							color: '#ffffff80',
+						},
+						color: 'white',
+						':hover': {
+							background: {
+								color: 'white',
+							},
+							color: '#333333',
+						},
 					},
 				},
 			},

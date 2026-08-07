@@ -1,4 +1,5 @@
 $realworld_app_article $mol_view
+	slug \
 	sub /
 		<= Banner $mol_view
 			sub /
@@ -20,11 +21,45 @@ $realworld_app_article $mol_view
 				<= Divider $mol_view
 				<= Meta_bottom $realworld_app_article_meta
 					article <= article
-				<= Comments $mol_list
-					rows <= comment_rows /
+				<= Comments $mol_view
+					sub /
+						<= Comment_box $mol_view
+							sub <= comment_box /
+						<= Comment_list $mol_list
+							rows <= comment_rows /
 	Tag* $mol_view
 		dom_name \span
 		sub /
 			<= tag_name* \
 	Comment* $realworld_app_comment
 		comment <= comment* null
+		slug <= slug
+	Form $mol_view
+		sub /
+			<= Comment_text $realworld_app_area
+				hint \Write a comment...
+				value? <=> comment_text? \
+				attr *
+					^
+					placeholder \Write a comment...
+			<= Form_foot $mol_view
+				sub /
+					<= Comment_avatar $mol_image
+						uri <= user_image \
+					<= Post $mol_button_major
+						click? <=> post? null
+						title \Post Comment
+	Guest_note $mol_view
+		sub /
+			<= Signin_link $realworld_app_link
+				arg *
+					page \login
+				sub /
+					\Sign in
+			\ or
+			<= Signup_link $realworld_app_link
+				arg *
+					page \register
+				sub /
+					\sign up
+			\ to add comments on this article.

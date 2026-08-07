@@ -19,6 +19,54 @@ namespace $.$$ {
 			return $realworld_app_date( this.article().createdAt )
 		}
 
+		following() {
+			return this.article().author.following
+		}
+
+		favorited() {
+			return this.article().favorited
+		}
+
+		follow_title() {
+			return `${ this.following() ? 'Unfollow' : 'Follow' } ${ this.author() }`
+		}
+
+		favorite_title() {
+			return `${ this.favorited() ? 'Unfavorite' : 'Favorite' } Article (${ this.article().favoritesCount })`
+		}
+
+		/** Your own article gets editing controls from the page instead. */
+		@ $mol_mem
+		override actions(): readonly $mol_view[] {
+			const user = this.$.$realworld_api.user()
+			if( user && user.username === this.author() ) return []
+			return [ this.Follow(), this.Favorite() ]
+		}
+
+		@ $mol_action
+		override follow( next?: any ) {
+
+			const api = this.$.$realworld_api
+			if( !api.user() ) {
+				this.$.$mol_state_arg.go( { ... $realworld_app_route(), page: 'login' } )
+				return
+			}
+
+			api.follow( this.author(), !this.following() )
+		}
+
+		@ $mol_action
+		override favorite( next?: any ) {
+
+			const api = this.$.$realworld_api
+			if( !api.user() ) {
+				this.$.$mol_state_arg.go( { ... $realworld_app_route(), page: 'login' } )
+				return
+			}
+
+			api.favorite( this.article().slug, !this.favorited() )
+		}
+
 	}
 
 }

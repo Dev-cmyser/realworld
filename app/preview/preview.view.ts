@@ -35,6 +35,24 @@ namespace $.$$ {
 			return String( this.article().favoritesCount )
 		}
 
+		favorited() {
+			return this.article().favorited
+		}
+
+		@ $mol_action
+		override favorite( next?: any ) {
+
+			// The suspending read comes first, so the very first click is not swallowed
+			// while the current user is still loading.
+			const api = this.$.$realworld_api
+			if( !api.user() ) {
+				this.$.$mol_state_arg.go( { ... $realworld_app_route(), page: 'login' } )
+				return
+			}
+
+			api.favorite( this.slug(), !this.favorited() )
+		}
+
 		@ $mol_mem
 		tag_pills() {
 			return this.article().tagList.map( tag => this.Tag( tag ) )

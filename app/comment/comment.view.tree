@@ -1,6 +1,11 @@
 $realworld_app_comment $mol_view
 	comment null
-	actions /
+	slug \
+	Delete $realworld_app_button
+		click? <=> delete? null
+		hint \Delete comment
+		sub /
+			<= Delete_icon $mol_icon_trash_can
 	sub /
 		<= Body $mol_view
 			sub /
@@ -28,4 +33,4 @@ $realworld_app_comment $mol_view
 					sub /
 						<= date \
 				<= Actions $mol_view
-					sub <= actions
+					sub <= actions /

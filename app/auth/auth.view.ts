@@ -65,7 +65,7 @@ namespace $.$$ {
 
 			this.errors( [] )
 			this.password( '' )
-			this.$.$mol_state_arg.go( { page: null, slug: null, user: null, tab: null, tag: null, num: null } )
+			this.$.$mol_state_arg.go( $realworld_app_route() )
 		}
 
 	}

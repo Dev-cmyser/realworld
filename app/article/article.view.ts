@@ -2,7 +2,7 @@ namespace $.$$ {
 
 	export class $realworld_app_article extends $.$realworld_app_article {
 
-		slug() {
+		override slug() {
 			return this.$.$mol_state_arg.value( 'slug' ) ?? ''
 		}
 
@@ -41,6 +41,29 @@ namespace $.$$ {
 		@ $mol_mem_key
 		override comment( id: string ): $realworld_api_comment {
 			return this.comments().find( comment => String( comment.id ) === id )!
+		}
+
+		user() {
+			return this.$.$realworld_api.user()
+		}
+
+		user_image() {
+			return this.user()?.image || $realworld_app_avatar
+		}
+
+		@ $mol_mem
+		override comment_box(): readonly $mol_view[] {
+			return [ this.user() ? this.Form() : this.Guest_note() ]
+		}
+
+		@ $mol_action
+		override post( next?: any ) {
+
+			const text = this.comment_text().trim()
+			if( !text ) return
+
+			this.$.$realworld_api.comment_create( this.slug(), text )
+			this.comment_text( '' )
 		}
 
 	}

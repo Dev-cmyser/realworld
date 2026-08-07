@@ -86,19 +86,39 @@ namespace $.$$ {
 				color: $realworld_app_theme.brand,
 			},
 			borderRadius: '.2rem',
+			background: {
+				color: 'transparent',
+			},
 			color: $realworld_app_theme.brand,
 			font: {
 				size: '.85rem',
 			},
+			minHeight: 0,
 			flex: {
 				shrink: 0,
+			},
+			':hover': {
+				background: {
+					color: $realworld_app_theme.brand,
+				},
+				color: 'white',
+			},
+			'@': {
+				realworld_on: {
+					true: {
+						background: {
+							color: $realworld_app_theme.brand,
+						},
+						color: 'white',
+					},
+				},
 			},
 		},
 
 		Favorite_icon: {
 			width: '.9rem',
 			height: '.9rem',
-			fill: $realworld_app_theme.brand,
+			fill: 'currentcolor',
 		},
 
 		Link: {

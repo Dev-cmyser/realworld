@@ -22,7 +22,9 @@ $realworld_app_preview $mol_view
 						<= Date $mol_view
 							sub /
 								<= date \
-				<= Favorite $mol_view
+				<= Favorite $realworld_app_button
+					click? <=> favorite? null
+					active <= favorited false
 					sub /
 						<= Favorite_icon $mol_icon_heart
 						<= favorites_count \

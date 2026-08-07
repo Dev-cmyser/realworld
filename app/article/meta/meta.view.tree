@@ -1,6 +1,5 @@
 $realworld_app_article_meta $mol_view
 	article null
-	actions /
 	dark false
 	attr *
 		^
@@ -26,4 +25,14 @@ $realworld_app_article_meta $mol_view
 					sub /
 						<= date \
 		<= Actions $mol_view
-			sub <= actions
+			sub <= actions /
+	Follow $realworld_app_button
+		click? <=> follow? null
+		title <= follow_title \
+		active <= following false
+	Favorite $realworld_app_button
+		click? <=> favorite? null
+		active <= favorited false
+		sub /
+			<= Favorite_icon $mol_icon_heart
+			<= favorite_title \
