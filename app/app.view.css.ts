@@ -5,6 +5,9 @@ namespace $.$$ {
 		flex: {
 			direction: 'column',
 		},
+		// $mol pins its root to the viewport height; Conduit pages scroll the document,
+		// so the root has to grow with its content or the page canvas shows through.
+		height: 'auto',
 		minHeight: '100vh',
 		minWidth: 0,
 		background: {

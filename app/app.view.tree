@@ -9,3 +9,4 @@ $realworld_app $mol_view
 			sub <= body /
 		<= Foot $realworld_app_footer
 	Home $realworld_app_home
+	Article $realworld_app_article

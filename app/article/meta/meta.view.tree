@@ -1,0 +1,29 @@
+$realworld_app_article_meta $mol_view
+	article null
+	actions /
+	dark false
+	attr *
+		^
+		realworld_dark <= dark
+	sub /
+		<= Author_pic $realworld_app_link
+			arg *
+				page \profile
+				user <= author \
+			sub /
+				<= Avatar $mol_image
+					uri <= author_image \
+					title <= author
+		<= Info $mol_view
+			sub /
+				<= Author_link $realworld_app_link
+					arg *
+						page \profile
+						user <= author
+					sub /
+						<= author
+				<= Date $mol_view
+					sub /
+						<= date \
+		<= Actions $mol_view
+			sub <= actions

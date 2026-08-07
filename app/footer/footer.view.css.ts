@@ -54,6 +54,8 @@ namespace $.$$ {
 
 		Source: {
 			display: 'inline',
+			padding: 0,
+			minHeight: 0,
 			marginLeft: '.25rem',
 			color: $realworld_app_theme.pill,
 			textDecoration: 'none',

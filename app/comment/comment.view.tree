@@ -1,0 +1,31 @@
+$realworld_app_comment $mol_view
+	comment null
+	actions /
+	sub /
+		<= Body $mol_view
+			sub /
+				<= Text $mol_view
+					dom_name \p
+					sub /
+						<= body \
+		<= Foot $mol_view
+			sub /
+				<= Author_pic $realworld_app_link
+					arg *
+						page \profile
+						user <= author \
+					sub /
+						<= Avatar $mol_image
+							uri <= author_image \
+							title <= author
+				<= Author_link $realworld_app_link
+					arg *
+						page \profile
+						user <= author
+					sub /
+						<= author
+				<= Date $mol_view
+					sub /
+						<= date \
+				<= Actions $mol_view
+					sub <= actions

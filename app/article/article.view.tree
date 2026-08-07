@@ -1,0 +1,30 @@
+$realworld_app_article $mol_view
+	sub /
+		<= Banner $mol_view
+			sub /
+				<= Banner_inner $mol_view
+					sub /
+						<= Title $mol_view
+							dom_name \h1
+							sub /
+								<= title \
+						<= Meta_top $realworld_app_article_meta
+							article <= article null
+							dark true
+		<= Container $mol_view
+			sub /
+				<= Body $mol_text
+					text <= body \
+				<= Tags $mol_view
+					sub <= tag_pills /
+				<= Divider $mol_view
+				<= Meta_bottom $realworld_app_article_meta
+					article <= article
+				<= Comments $mol_list
+					rows <= comment_rows /
+	Tag* $mol_view
+		dom_name \span
+		sub /
+			<= tag_name* \
+	Comment* $realworld_app_comment
+		comment <= comment* null

@@ -9,6 +9,7 @@ namespace $.$$ {
 		@ $mol_mem
 		override body(): readonly $mol_view[] {
 			switch( this.page() ) {
+				case 'article': return [ this.Article() ]
 				default: return [ this.Home() ]
 			}
 		}
