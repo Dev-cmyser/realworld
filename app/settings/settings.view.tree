@@ -1,0 +1,55 @@
+$realworld_app_settings $mol_view
+	sub /
+		<= Container $mol_view
+			sub /
+				<= Title $mol_view
+					dom_name \h1
+					sub /
+						\Your Settings
+				<= Errors $mol_view
+					dom_name \ul
+					sub <= error_rows /
+				<= Fields $mol_view
+					sub /
+						<= Image $mol_string
+							hint \URL of profile picture
+							value? <=> image? \
+							attr *
+								^
+								name \image
+						<= Username $mol_string
+							hint \Username
+							value? <=> username? \
+							attr *
+								^
+								name \username
+						<= Bio $realworld_app_area
+							hint \Short bio about you
+							value? <=> bio? \
+							attr *
+								^
+								name \bio
+						<= Email $mol_string
+							hint \Email
+							value? <=> email? \
+							attr *
+								^
+								name \email
+						<= Password $mol_string
+							hint \New Password
+							type \password
+							value? <=> password? \
+							attr *
+								^
+								name \password
+				<= Submit $mol_button_major
+					click? <=> submit? null
+					title \Update Settings
+				<= Divider $mol_view
+				<= Logout $mol_button_minor
+					click? <=> logout? null
+					title \Or click here to logout.
+	Error* $mol_view
+		dom_name \li
+		sub /
+			<= error_text* \

@@ -1,0 +1,46 @@
+$realworld_app_auth $mol_view
+	sub /
+		<= Container $mol_view
+			sub /
+				<= Title $mol_view
+					dom_name \h1
+					sub /
+						<= title \
+				<= Switch $realworld_app_link
+					arg <= switch_arg *
+					sub /
+						<= switch_title \
+				<= Errors $mol_view
+					dom_name \ul
+					sub <= error_rows /
+				<= Fields $mol_view
+					sub <= fields /
+				<= Submit $mol_button_major
+					click? <=> submit? null
+					title <= title
+	Username $mol_string
+		hint \Username
+		value? <=> username? \
+		submit? <=> submit?
+		attr *
+			^
+			name \username
+	Email $mol_string
+		hint \Email
+		value? <=> email? \
+		submit? <=> submit?
+		attr *
+			^
+			name \email
+	Password $mol_string
+		hint \Password
+		type \password
+		value? <=> password? \
+		submit? <=> submit?
+		attr *
+			^
+			name \password
+	Error* $mol_view
+		dom_name \li
+		sub /
+			<= error_text* \

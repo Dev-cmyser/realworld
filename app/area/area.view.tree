@@ -1,0 +1,4 @@
+- Plain multiline input. $mol_textarea drags in a whole code editor, which a bio field does not need.
+$realworld_app_area $mol_string
+	dom_name \textarea
+	enter \enter
