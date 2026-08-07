@@ -50,3 +50,9 @@ __pycache__
 
 # Local db
 dev.db
+
+# MAM build output ($mol implementation on the `mol` branch)
+**/-/
+**/-view.tree/
+**/-node/
+**/-css/

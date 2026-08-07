@@ -1,0 +1,11 @@
+$realworld_app $mol_view
+	title \Conduit
+	sub /
+		<= Banner $mol_view
+			sub /
+				<= Logo $mol_view
+					sub /
+						\conduit
+				<= Slogan $mol_view
+					sub /
+						\A place to share your knowledge.
