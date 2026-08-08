@@ -61,8 +61,7 @@ namespace $.$$ {
 				api.user_update( patch )
 			} catch( error ) {
 				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
-				if( !( error instanceof $realworld_api_error ) ) return $mol_fail_hidden( error )
-				this.errors( $realworld_api_error.list( error.errors ) )
+				this.errors( $realworld_api_error.messages( error ) )
 				return
 			}
 

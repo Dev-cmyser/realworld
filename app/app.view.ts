@@ -34,6 +34,33 @@ namespace $.$$ {
 			}
 		}
 
+		/**
+		 * The pages that need an account are addresses anybody can type in. A visitor
+		 * the server has no account for belongs on the sign in form, address and all.
+		 *
+		 * Only a refusal counts. While the server is unreachable the token may still be
+		 * good, and throwing somebody out over a connection blip would be worse than
+		 * showing them an empty form.
+		 */
+		@ $mol_mem
+		guard() {
+			const page = this.page()
+			if( page !== 'settings' && page !== 'editor' ) return null
+			if( this.$.$realworld_api.auth() !== 'unauthenticated' ) return null
+			return new $mol_after_tick( () => $mol_wire_async( this ).sign_in() )
+		}
+
+		@ $mol_action
+		sign_in() {
+			this.$.$mol_state_arg.go( { ... $realworld_app_route_clean(), page: 'login' } )
+		}
+
+		override auto() {
+			this.guard()
+			this.$.$realworld_api.token_check()
+			return []
+		}
+
 	}
 
 }

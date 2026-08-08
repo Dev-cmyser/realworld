@@ -74,6 +74,15 @@ $realworld_app_nav $realworld_app_el
 						dom_name \i
 						class_names \ion-gear-a
 					\ Settings
+	Offline_item $realworld_app_el
+		dom_name \li
+		class_names \nav-item
+		sub /
+			<= Offline $realworld_app_button
+				class_names \nav-link
+				click? <=> reconnect? null
+				sub /
+					\Connecting…
 	Profile_item $realworld_app_el
 		dom_name \li
 		class_names \nav-item

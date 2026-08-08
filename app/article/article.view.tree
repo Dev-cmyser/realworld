@@ -41,15 +41,26 @@ $realworld_app_article $realworld_app_el
 					sub /
 						<= Comments_column $realworld_app_el
 							class_names \col-xs-12 col-md-8 offset-md-2
-							sub <= comment_box /
+							sub /
+								<= Errors $realworld_app_el
+									dom_name \ul
+									class_names \error-messages
+									sub <= error_rows /
+								<= Comments $realworld_app_el
+									sub <= comment_box /
 	Tag* $realworld_app_el
 		dom_name \li
 		class_names \tag-default tag-pill tag-outline
 		sub /
 			<= tag_name* \
+	Error* $realworld_app_el
+		dom_name \li
+		sub /
+			<= error_text* \
 	Comment* $realworld_app_comment
 		comment <= comment* null
 		slug <= slug
+		errors? <=> errors? /
 	Form $realworld_app_form
 		class_names \card comment-form
 		submit? <=> post? null

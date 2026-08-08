@@ -95,8 +95,7 @@ namespace $.$$ {
 				article = slug ? api.article_update( slug, draft ) : api.article_create( draft )
 			} catch( error ) {
 				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
-				if( !( error instanceof $realworld_api_error ) ) return $mol_fail_hidden( error )
-				this.errors( $realworld_api_error.list( error.errors ) )
+				this.errors( $realworld_api_error.messages( error ) )
 				return
 			}
 

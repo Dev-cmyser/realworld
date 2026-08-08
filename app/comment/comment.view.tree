@@ -2,6 +2,7 @@ $realworld_app_comment $realworld_app_el
 	class_names \card
 	comment null
 	slug \
+	errors? /
 	sub /
 		<= Body $realworld_app_el
 			class_names \card-block

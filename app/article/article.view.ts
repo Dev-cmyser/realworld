@@ -54,13 +54,35 @@ namespace $.$$ {
 			]
 		}
 
+		@ $mol_mem
+		override errors( next?: readonly string[] ): readonly string[] {
+			return next ?? []
+		}
+
+		@ $mol_mem
+		override error_rows(): readonly $mol_view[] {
+			return this.errors().map( ( _, index ) => this.Error( index ) )
+		}
+
+		error_text( index: number ) {
+			return this.errors()[ index ]
+		}
+
 		@ $mol_action
 		override post( next?: any ) {
 
 			const text = this.comment_text().trim()
 			if( !text ) return null
 
-			this.$.$realworld_api.comment_create( this.slug(), text )
+			try {
+				this.$.$realworld_api.comment_create( this.slug(), text )
+			} catch( error ) {
+				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
+				this.errors( $realworld_api_error.messages( error ) )
+				return null
+			}
+
+			this.errors( [] )
 			this.comment_text( '' )
 			return null
 		}

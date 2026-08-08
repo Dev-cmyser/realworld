@@ -85,7 +85,29 @@ namespace $ {
 			)
 		}
 
+		/**
+		 * What to put in front of the visitor for any failed request, including the ones
+		 * the API never got to answer — a form that swallows a dropped connection looks
+		 * broken, so those get a message of their own.
+		 */
+		static messages( error: unknown ): readonly string[] {
+
+			if( !( error instanceof $realworld_api_error ) ) {
+				return [ 'Unable to connect to the server. Check your connection and try again.' ]
+			}
+
+			const list = this.list( error.errors )
+			return list.length ? list : [ error.message ]
+		}
+
 	}
+
+	/**
+	 * Where the app stands with the current visitor. `unavailable` is the case the
+	 * other three do not cover: there is a token, and the server is in no state to
+	 * say whether it is any good — which is not a reason to throw it away.
+	 */
+	export type $realworld_api_auth = 'authenticated' | 'unauthenticated' | 'unavailable' | 'loading'
 
 	/**
 	 * Thin typed client for the Conduit REST API.
@@ -226,21 +248,49 @@ namespace $ {
 			return ( this.get( `/profiles/${ encodeURIComponent( username ) }` ) as { profile: $realworld_api_profile } ).profile
 		}
 
-		/** Signed in user, or `null` when there is no token or it is no longer accepted. */
+		/**
+		 * Who is signed in, and how sure we are about it.
+		 *
+		 * A status the server chose is a verdict on the token — it is spent, whatever
+		 * the code. Anything else (5xx, a dropped connection) says nothing about the
+		 * token, so it survives and the app carries on signed out for now.
+		 */
 		@ $mol_mem
-		static user(): $realworld_api_user | null {
+		static session(): { auth: $realworld_api_auth, user: $realworld_api_user | null } {
 
-			if( !this.token() ) return null
+			if( !this.token() ) return { auth: 'unauthenticated', user: null }
 
 			try {
-				return ( this.get( '/user' ) as { user: $realworld_api_user } ).user
+				const user = ( this.get( '/user' ) as { user: $realworld_api_user } ).user
+				return { auth: 'authenticated', user }
 			} catch( error ) {
-				// A suspended read must keep propagating, only a rejected token means "signed out".
+				// A suspended read must keep propagating.
 				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
-				if( error instanceof $realworld_api_error && error.code === 401 ) return null
-				return $mol_fail_hidden( error )
+				const rejected = error instanceof $realworld_api_error && error.code < 500
+				return { auth: rejected ? 'unauthenticated' : 'unavailable', user: null }
 			}
 
+		}
+
+		/** Signed in user, or `null` when there is no token or it is no longer accepted. */
+		static user(): $realworld_api_user | null {
+			return this.session().user
+		}
+
+		static auth(): $realworld_api_auth {
+			return this.session().auth
+		}
+
+		/**
+		 * Drops a token the server has rejected. Lives in a cell of its own because
+		 * `session()` may only read: something has to observe this one for the token to
+		 * actually go, and that is the app root.
+		 */
+		@ $mol_mem
+		static token_check() {
+			if( !this.token() ) return null
+			if( this.session().auth !== 'unauthenticated' ) return null
+			return new $mol_after_tick( () => $mol_wire_async( this ).logout() )
 		}
 
 		// --- authentication ---

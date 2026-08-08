@@ -29,9 +29,15 @@ namespace $.$$ {
 			return [ this.Delete() ]
 		}
 
+		/** Reported up to the article, which owns the one error list on the page. */
 		@ $mol_action
 		override delete( next?: any ) {
-			this.$.$realworld_api.comment_delete( this.slug(), this.comment().id )
+			try {
+				this.$.$realworld_api.comment_delete( this.slug(), this.comment().id )
+			} catch( error ) {
+				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
+				this.errors( $realworld_api_error.messages( error ) )
+			}
 			return null
 		}
 

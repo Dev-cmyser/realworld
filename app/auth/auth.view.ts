@@ -58,8 +58,7 @@ namespace $.$$ {
 			} catch( error ) {
 				// A suspended request keeps propagating; only a rejected one is a form error.
 				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
-				if( !( error instanceof $realworld_api_error ) ) return $mol_fail_hidden( error )
-				this.errors( $realworld_api_error.list( error.errors ) )
+				this.errors( $realworld_api_error.messages( error ) )
 				return null
 			}
 

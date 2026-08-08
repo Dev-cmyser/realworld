@@ -1,7 +1,5 @@
 namespace $ {
 
-	export type $realworld_app_debug_state = 'authenticated' | 'unauthenticated' | 'unavailable' | 'loading'
-
 	/**
 	 * Test hook the shared RealWorld e2e suite reads through `window.__conduit_debug__`.
 	 * It lets a test wait for the app to settle on an answer about the current user
@@ -23,12 +21,9 @@ namespace $ {
 			}
 		}
 
-		static state(): $realworld_app_debug_state {
-
-			if( !this.token() ) return 'unauthenticated'
-
+		static state(): $realworld_api_auth {
 			try {
-				return $realworld_api.user() ? 'authenticated' : 'unauthenticated'
+				return $realworld_api.auth()
 			} catch( error ) {
 				// The request is still out; the answer is not known yet, not missing.
 				if( $mol_promise_like( error ) ) return 'loading'
@@ -42,7 +37,7 @@ namespace $ {
 			const scope = globalThis as typeof globalThis & {
 				__conduit_debug__?: {
 					getToken(): string | null
-					getAuthState(): $realworld_app_debug_state
+					getAuthState(): $realworld_api_auth
 					getCurrentUser(): $realworld_api_user | null
 				}
 			}
