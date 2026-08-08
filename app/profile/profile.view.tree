@@ -41,6 +41,13 @@ $realworld_app_profile $realworld_app_el
 									mode <= feed_mode \author
 									author <= username
 									tabs <= feed_tabs /
+	Missing $realworld_app_el
+		class_names \container page
+		sub /
+			<= Missing_note $realworld_app_el
+				dom_name \p
+				sub /
+					\This profile could not be loaded.
 	Follow $realworld_app_button
 		class_names \btn btn-sm btn-outline-secondary action-btn
 		click? <=> follow? null

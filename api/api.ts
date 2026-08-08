@@ -153,6 +153,10 @@ namespace $ {
 				method,
 				headers,
 				body: body === undefined ? undefined : JSON.stringify( body ),
+				// A favourite or a comment posted a moment before the visitor follows a link
+				// would otherwise be cancelled along with the page. Reads have nowhere to
+				// deliver an answer once that happens, so this is for writes only.
+				keepalive: method !== 'GET',
 			}
 		}
 
@@ -190,7 +194,9 @@ namespace $ {
 			} catch( error ) {
 				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
 				if( error instanceof $realworld_api_error && error.code === 401 && this.token() ) {
+					this.signed_out( 'Your session has ended. Sign in again.' )
 					this.token( null )
+					this.user_known( null )
 					this.refresh()
 				}
 				return $mol_fail_hidden( error )
@@ -249,6 +255,21 @@ namespace $ {
 		}
 
 		/**
+		 * Why the app stopped being signed in, when it was not the visitor's doing.
+		 * Shown on the sign in form they land on, so the trip there is not a mystery.
+		 */
+		@ $mol_mem
+		static signed_out( next?: string ): string {
+			return next ?? ''
+		}
+
+		/** The last thing the server said about the current user, from whichever endpoint said it. */
+		@ $mol_mem
+		static user_known( next?: $realworld_api_user | null ): $realworld_api_user | null {
+			return next ?? null
+		}
+
+		/**
 		 * Who is signed in, and how sure we are about it.
 		 *
 		 * A status the server chose is a verdict on the token — it is spent, whatever
@@ -264,8 +285,14 @@ namespace $ {
 				const user = ( this.get( '/user' ) as { user: $realworld_api_user } ).user
 				return { auth: 'authenticated', user }
 			} catch( error ) {
-				// A suspended read must keep propagating.
-				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
+				if( $mol_promise_like( error ) ) {
+					// Re-reading `/user` after an update must not make the app forget who is
+					// signed in for the length of the round trip. The read stays subscribed,
+					// so the answer still lands when it arrives.
+					const known = this.user_known()
+					if( known ) return { auth: 'authenticated', user: known }
+					return $mol_fail_hidden( error )
+				}
 				const rejected = error instanceof $realworld_api_error && error.code < 500
 				return { auth: rejected ? 'unauthenticated' : 'unavailable', user: null }
 			}
@@ -299,6 +326,8 @@ namespace $ {
 		static login( email: string, password: string ) {
 			const data = this.send( 'POST', '/users/login', { user: { email, password } } ) as { user: $realworld_api_user }
 			this.token( data.user.token )
+			this.user_known( data.user )
+			this.signed_out( '' )
 			return data.user
 		}
 
@@ -306,12 +335,15 @@ namespace $ {
 		static register( username: string, email: string, password: string ) {
 			const data = this.send( 'POST', '/users', { user: { username, email, password } } ) as { user: $realworld_api_user }
 			this.token( data.user.token )
+			this.user_known( data.user )
+			this.signed_out( '' )
 			return data.user
 		}
 
 		@ $mol_action
 		static logout() {
 			this.token( null )
+			this.user_known( null )
 			this.refresh()
 		}
 
@@ -319,6 +351,8 @@ namespace $ {
 		static user_update( patch: $realworld_api_patch ) {
 			const data = this.send( 'PUT', '/user', { user: patch } ) as { user: $realworld_api_user }
 			this.token( data.user.token )
+			this.user_known( data.user )
+			this.signed_out( '' )
 			this.refresh()
 			return data.user
 		}

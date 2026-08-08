@@ -15,6 +15,22 @@ namespace $.$$ {
 			return this.$.$realworld_api.profile( this.username() )
 		}
 
+		/**
+		 * Without a profile there is nobody to put in the banner, so the page says so
+		 * instead of filling it with an author-shaped hole. A request still in flight is
+		 * not a failure and keeps suspending.
+		 */
+		@ $mol_mem
+		override sub(): readonly $mol_view[] {
+			try {
+				this.profile()
+			} catch( error ) {
+				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
+				return [ this.Missing() ]
+			}
+			return [ this.Banner(), this.Container() ]
+		}
+
 		image() {
 			return this.profile().image || $realworld_app_avatar
 		}

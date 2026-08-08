@@ -29,15 +29,25 @@ namespace $.$$ {
 			return [ this.Delete() ]
 		}
 
-		/** Reported up to the article, which owns the one error list on the page. */
+		/**
+		 * Both outcomes are reported up to the article, which owns the comment list and
+		 * the one error list on the page. Once the server has accepted the delete the
+		 * card goes right away, rather than waiting for the list to be fetched again.
+		 */
 		@ $mol_action
 		override delete( next?: any ) {
+
+			const id = this.comment().id
+
 			try {
-				this.$.$realworld_api.comment_delete( this.slug(), this.comment().id )
+				this.$.$realworld_api.comment_delete( this.slug(), id )
 			} catch( error ) {
 				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
 				this.errors( $realworld_api_error.messages( error ) )
+				return null
 			}
+
+			this.dropped( id )
 			return null
 		}
 

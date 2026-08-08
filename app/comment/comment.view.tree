@@ -3,6 +3,7 @@ $realworld_app_comment $realworld_app_el
 	comment null
 	slug \
 	errors? /
+	dropped? null
 	sub /
 		<= Body $realworld_app_el
 			class_names \card-block

@@ -28,9 +28,23 @@ namespace $.$$ {
 			return id
 		}
 
+		/** Comments the server has accepted a delete for, so the card goes without a round trip. */
+		@ $mol_mem
+		dropped( next?: readonly number[] ): readonly number[] {
+			return next ?? []
+		}
+
+		@ $mol_action
+		override comment_dropped( next?: number ) {
+			if( next === undefined ) return null
+			this.dropped( [ ... this.dropped(), next ] )
+			return next
+		}
+
 		@ $mol_mem
 		comments() {
-			return this.$.$realworld_api.comments( this.slug() )
+			const dropped = this.dropped()
+			return this.$.$realworld_api.comments( this.slug() ).filter( comment => !dropped.includes( comment.id ) )
 		}
 
 		@ $mol_mem_key

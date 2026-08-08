@@ -14,8 +14,12 @@ namespace $.$$ {
 			return this.$.$realworld_api.article( slug )
 		}
 
+		/**
+		 * The same words whether the article is new or not: that is what the reference
+		 * template says, and what the selector contract looks for on both paths.
+		 */
 		submit_title() {
-			return this.slug() ? 'Update Article' : 'Publish Article'
+			return 'Publish Article'
 		}
 
 		// Each field mirrors the stored article until the author edits it.

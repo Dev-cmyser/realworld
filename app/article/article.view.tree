@@ -61,6 +61,7 @@ $realworld_app_article $realworld_app_el
 		comment <= comment* null
 		slug <= slug
 		errors? <=> errors? /
+		dropped? <=> comment_dropped? null
 	Form $realworld_app_form
 		class_names \card comment-form
 		submit? <=> post? null

@@ -29,9 +29,12 @@ namespace $.$$ {
 			return [ this.Email_group(), this.Password_group() ]
 		}
 
+		/** Nothing to show until the form is submitted, unless the visitor was signed out on the way here. */
 		@ $mol_mem
 		errors( next?: readonly string[] ): readonly string[] {
-			return next ?? []
+			if( next ) return next
+			const notice = this.$.$realworld_api.signed_out()
+			return notice ? [ notice ] : []
 		}
 
 		@ $mol_mem
