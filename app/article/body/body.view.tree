@@ -1,0 +1,3 @@
+- Article body, rendered from the markdown the API returns.
+$realworld_app_article_body $mol_text
+	dom_name \div

@@ -1,46 +1,80 @@
-$realworld_app_home $mol_view
+$realworld_app_home $realworld_app_el
+	class_names \home-page
 	sub /
-		<= Banner $mol_view
+		<= Banner $realworld_app_el
+			class_names \banner
 			sub /
-				<= Logo $mol_view
-					dom_name \h1
+				<= Banner_container $realworld_app_el
+					class_names \container
 					sub /
-						\conduit
-				<= Slogan $mol_view
-					dom_name \p
-					sub /
-						\A place to share your knowledge.
-		<= Container $mol_view
-			sub /
-				<= Feed $realworld_app_feed
-					mode <= feed_mode \global
-					tabs <= feed_tabs /
-				<= Sidebar $mol_view
-					sub /
-						<= Sidebar_title $mol_view
+						<= Logo $realworld_app_el
+							dom_name \h1
+							class_names \logo-font
+							sub /
+								\conduit
+						<= Slogan $realworld_app_el
 							dom_name \p
 							sub /
-								\Popular Tags
-						<= Tag_list $mol_view
-							sub <= tag_links /
-	Feed_tab $realworld_app_link
-		arg *
-			tab \following
-		active <= feed_active false
+								\A place to share your knowledge.
+		<= Container $realworld_app_el
+			class_names \container page
+			sub /
+				<= Row $realworld_app_el
+					class_names \row
+					sub /
+						<= Main $realworld_app_el
+							class_names \col-md-9
+							sub /
+								<= Feed $realworld_app_feed
+									mode <= feed_mode \global
+									tabs <= feed_tabs /
+						<= Aside $realworld_app_el
+							class_names \col-md-3
+							sub /
+								<= Sidebar $realworld_app_el
+									class_names \sidebar
+									sub /
+										<= Sidebar_title $realworld_app_el
+											dom_name \p
+											sub /
+												\Popular Tags
+										<= Tag_list $realworld_app_el
+											class_names \tag-list
+											sub <= tag_links /
+	Feed_tab $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			\Your Feed
-	Global_tab $realworld_app_link
-		arg *
-		active <= global_active false
+			<= Feed_tab_link $realworld_app_link
+				class_base \nav-link
+				active <= feed_active false
+				arg *
+					tab \following
+				sub /
+					\Your Feed
+	Global_tab $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			\Global Feed
-	Tag_tab $realworld_app_link
-		arg *
-			tag <= tag \
-		active true
+			<= Global_tab_link $realworld_app_link
+				class_base \nav-link
+				active <= global_active false
+				arg *
+				sub /
+					\Global Feed
+	Tag_tab $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			<= tag_tab_title \
+			<= Tag_tab_link $realworld_app_link
+				class_base \nav-link
+				active true
+				arg *
+					tag <= tag \
+				sub /
+					<= tag_tab_title \
 	Tag_link* $realworld_app_link
+		class_base \tag-pill tag-default
 		arg *
 			tag <= tag_name* \
 		sub /

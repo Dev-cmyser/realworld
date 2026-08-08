@@ -1,55 +1,81 @@
-$realworld_app_article $mol_view
+$realworld_app_article $realworld_app_el
+	class_names \article-page
 	slug \
 	sub /
-		<= Banner $mol_view
+		<= Banner $realworld_app_el
+			class_names \banner
 			sub /
-				<= Banner_inner $mol_view
+				<= Banner_container $realworld_app_el
+					class_names \container
 					sub /
-						<= Title $mol_view
+						<= Title $realworld_app_el
 							dom_name \h1
 							sub /
 								<= title \
 						<= Meta_top $realworld_app_article_meta
 							article <= article null
-							dark true
-		<= Container $mol_view
+		<= Container $realworld_app_el
+			class_names \container page
 			sub /
-				<= Body $mol_text
-					text <= body \
-				<= Tags $mol_view
-					sub <= tag_pills /
-				<= Divider $mol_view
-				<= Meta_bottom $realworld_app_article_meta
-					article <= article
-				<= Comments $mol_view
+				<= Content_row $realworld_app_el
+					class_names \row article-content
 					sub /
-						<= Comment_box $mol_view
+						<= Content_column $realworld_app_el
+							class_names \col-md-12
+							sub /
+								<= Body $realworld_app_article_body
+									text <= body \
+								<= Tags $realworld_app_el
+									dom_name \ul
+									class_names \tag-list
+									sub <= tag_pills /
+				<= Divider $realworld_app_el
+					dom_name \hr
+				<= Actions $realworld_app_el
+					class_names \article-actions
+					sub /
+						<= Meta_bottom $realworld_app_article_meta
+							article <= article
+				<= Comments_row $realworld_app_el
+					class_names \row
+					sub /
+						<= Comments_column $realworld_app_el
+							class_names \col-xs-12 col-md-8 offset-md-2
 							sub <= comment_box /
-						<= Comment_list $mol_list
-							rows <= comment_rows /
-	Tag* $mol_view
-		dom_name \span
+	Tag* $realworld_app_el
+		dom_name \li
+		class_names \tag-default tag-pill tag-outline
 		sub /
 			<= tag_name* \
 	Comment* $realworld_app_comment
 		comment <= comment* null
 		slug <= slug
-	Form $mol_view
+	Form $realworld_app_form
+		class_names \card comment-form
+		submit? <=> post? null
 		sub /
-			<= Comment_text $realworld_app_area
-				hint \Write a comment...
-				value? <=> comment_text? \
-				attr *
-					^
-					placeholder \Write a comment...
-			<= Form_foot $mol_view
+			<= Comment_block $realworld_app_el
+				class_names \card-block
 				sub /
-					<= Comment_avatar $mol_image
+					<= Comment_text $realworld_app_area
+						class_names \form-control
+						name \comment
+						rows \3
+						hint \Write a comment...
+						value? <=> comment_text? \
+			<= Form_foot $realworld_app_el
+				class_names \card-footer
+				sub /
+					<= Comment_avatar $realworld_app_image
+						class_names \comment-author-img
 						uri <= user_image \
-					<= Post $mol_button_major
-						click? <=> post? null
-						title \Post Comment
-	Guest_note $mol_view
+					<= Post $realworld_app_button
+						class_names \btn btn-sm btn-primary
+						type \submit
+						sub /
+							\Post Comment
+	Guest_note $realworld_app_el
+		dom_name \p
 		sub /
 			<= Signin_link $realworld_app_link
 				arg *

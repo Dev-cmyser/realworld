@@ -1,0 +1,6 @@
+$realworld_app_form $realworld_app_el
+	dom_name \form
+	submit? null
+	event *
+		^
+		submit? <=> event_submit? null

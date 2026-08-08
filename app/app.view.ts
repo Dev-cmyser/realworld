@@ -2,6 +2,11 @@ namespace $.$$ {
 
 	export class $realworld_app extends $.$realworld_app {
 
+		static {
+			$realworld_app_route.activate()
+			$realworld_app_debug.install()
+		}
+
 		page() {
 			return this.$.$mol_state_arg.value( 'page' ) ?? ''
 		}
@@ -11,7 +16,12 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		override body(): readonly $mol_view[] {
+		layout(): readonly $mol_view[] {
+			return [ this.Nav(), ... this.body(), this.Foot() ]
+		}
+
+		@ $mol_mem
+		body(): readonly $mol_view[] {
 			switch( this.page() ) {
 				case 'article': return [ this.Article() ]
 				case 'login': return [ this.Auth() ]

@@ -32,6 +32,7 @@ namespace $.$$ {
 		@ $mol_action
 		override delete( next?: any ) {
 			this.$.$realworld_api.comment_delete( this.slug(), this.comment().id )
+			return null
 		}
 
 	}

@@ -28,7 +28,7 @@ namespace $.$$ {
 		}
 
 		follow_title() {
-			return `${ this.following() ? 'Unfollow' : 'Follow' } ${ this.username() }`
+			return ` ${ this.following() ? 'Unfollow' : 'Follow' } ${ this.username() }`
 		}
 
 		override feed_mode() {
@@ -60,7 +60,7 @@ namespace $.$$ {
 
 			const api = this.$.$realworld_api
 			if( !api.user() ) {
-				this.$.$mol_state_arg.go( { ... $realworld_app_route(), page: 'login' } )
+				this.$.$mol_state_arg.go( { ... $realworld_app_route_clean(), page: 'login' } )
 				return
 			}
 

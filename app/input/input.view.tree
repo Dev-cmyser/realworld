@@ -1,0 +1,6 @@
+$realworld_app_input $mol_string
+	name \
+	attr *
+		^
+		class <= class_names \form-control
+		name <= name

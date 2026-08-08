@@ -25,8 +25,8 @@ namespace $.$$ {
 
 		@ $mol_mem
 		override fields(): readonly $mol_view[] {
-			if( this.joining() ) return [ this.Username(), this.Email(), this.Password() ]
-			return [ this.Email(), this.Password() ]
+			if( this.joining() ) return [ this.Username_group(), this.Email_group(), this.Password_group() ]
+			return [ this.Email_group(), this.Password_group() ]
 		}
 
 		@ $mol_mem
@@ -60,12 +60,13 @@ namespace $.$$ {
 				if( $mol_promise_like( error ) ) return $mol_fail_hidden( error )
 				if( !( error instanceof $realworld_api_error ) ) return $mol_fail_hidden( error )
 				this.errors( $realworld_api_error.list( error.errors ) )
-				return
+				return null
 			}
 
 			this.errors( [] )
 			this.password( '' )
-			this.$.$mol_state_arg.go( $realworld_app_route() )
+			this.$.$mol_state_arg.go( $realworld_app_route_clean() )
+			return null
 		}
 
 	}

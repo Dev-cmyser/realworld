@@ -1,13 +1,9 @@
-$realworld_app $mol_view
+$realworld_app $realworld_app_el
+	dom_name \app-root
 	title \Conduit
-	attr *
-		^
-		mol_theme \$mol_theme_light
-	sub /
-		<= Nav $realworld_app_nav
-		<= Body $mol_view
-			sub <= body /
-		<= Foot $realworld_app_footer
+	sub <= layout /
+	Nav $realworld_app_nav
+	Foot $realworld_app_footer
 	Home $realworld_app_home
 	Article $realworld_app_article
 	Auth $realworld_app_auth

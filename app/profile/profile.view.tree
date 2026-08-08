@@ -1,50 +1,85 @@
-$realworld_app_profile $mol_view
+$realworld_app_profile $realworld_app_el
+	class_names \profile-page
 	sub /
-		<= Banner $mol_view
+		<= Banner $realworld_app_el
+			class_names \user-info
 			sub /
-				<= Banner_inner $mol_view
+				<= Banner_container $realworld_app_el
+					class_names \container
 					sub /
-						<= Avatar $mol_image
-							uri <= image \
-							title <= username \
-						<= Name $mol_view
-							dom_name \h4
+						<= Banner_row $realworld_app_el
+							class_names \row
 							sub /
-								<= username
-						<= Bio $mol_view
-							dom_name \p
-							sub /
-								<= bio \
-						<= Actions $mol_view
-							sub <= actions /
-		<= Container $mol_view
+								<= Banner_column $realworld_app_el
+									class_names \col-xs-12 col-md-10 offset-md-1
+									sub /
+										<= Avatar $realworld_app_image
+											class_names \user-img
+											uri <= image \
+											alt <= username \
+										<= Name $realworld_app_el
+											dom_name \h4
+											sub /
+												<= username
+										<= Bio $realworld_app_el
+											dom_name \p
+											sub /
+												<= bio \
+										<= Actions $realworld_app_el
+											sub <= actions /
+		<= Container $realworld_app_el
+			class_names \container
 			sub /
-				<= Feed $realworld_app_feed
-					mode <= feed_mode \author
-					author <= username
-					tabs <= feed_tabs /
+				<= Row $realworld_app_el
+					class_names \row
+					sub /
+						<= Column $realworld_app_el
+							class_names \col-xs-12 col-md-10 offset-md-1
+							sub /
+								<= Feed $realworld_app_feed
+									toggle_class \articles-toggle
+									mode <= feed_mode \author
+									author <= username
+									tabs <= feed_tabs /
 	Follow $realworld_app_button
+		class_names \btn btn-sm btn-outline-secondary action-btn
 		click? <=> follow? null
-		title <= follow_title \
-		active <= following false
+		sub /
+			<= Follow_icon $realworld_app_el
+				dom_name \i
+				class_names \ion-plus-round
+			<= follow_title \
 	Edit $realworld_app_link
+		class_base \btn btn-sm btn-outline-secondary action-btn
 		arg *
 			page \settings
 		sub /
-			<= Edit_icon $mol_icon_settings
+			<= Edit_icon $realworld_app_el
+				dom_name \i
+				class_names \ion-gear-a
 			\ Edit Profile Settings
-	Mine_tab $realworld_app_link
-		arg *
-			page \profile
-			user <= username
-		active <= mine_active false
+	Mine_tab $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			\My Articles
-	Fav_tab $realworld_app_link
-		arg *
-			page \profile
-			user <= username
-			tab \favorites
-		active <= fav_active false
+			<= Mine_link $realworld_app_link
+				class_base \nav-link
+				active <= mine_active false
+				arg *
+					page \profile
+					user <= username
+				sub /
+					\My Articles
+	Fav_tab $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			\Favorited Articles
+			<= Fav_link $realworld_app_link
+				class_base \nav-link
+				active <= fav_active false
+				arg *
+					page \profile
+					user <= username
+					tab \favorites
+				sub /
+					\Favorited Articles

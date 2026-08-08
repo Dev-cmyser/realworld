@@ -47,6 +47,28 @@ namespace $.$$ {
 			return id
 		}
 
+		/**
+		 * Your Feed is an address a signed out visitor can type in, and there is no
+		 * feed to show them. The spec sends them to sign in.
+		 */
+		@ $mol_mem
+		guard() {
+			if( this.tab() !== 'following' ) return null
+			if( this.$.$realworld_api.user() ) return null
+			$mol_wire_async( this ).sign_in()
+			return null
+		}
+
+		@ $mol_action
+		sign_in() {
+			this.$.$mol_state_arg.go( { ... $realworld_app_route_clean(), page: 'login' } )
+		}
+
+		override auto() {
+			this.guard()
+			return []
+		}
+
 	}
 
 }

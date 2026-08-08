@@ -6,7 +6,7 @@ namespace $.$$ {
 			return this.$.$realworld_api.user()
 		}
 
-		username() {
+		override username() {
 			return this.user()?.username ?? ''
 		}
 
@@ -21,9 +21,9 @@ namespace $.$$ {
 		@ $mol_mem
 		override menu(): readonly $mol_view[] {
 
-			if( !this.user() ) return [ this.Home_link(), this.Signin_link(), this.Signup_link() ]
+			if( !this.user() ) return [ this.Home_item(), this.Signin_item(), this.Signup_item() ]
 
-			return [ this.Home_link(), this.Editor_link(), this.Settings_link(), this.Profile_link() ]
+			return [ this.Home_item(), this.Editor_item(), this.Settings_item(), this.Profile_item() ]
 		}
 
 		home_active() {

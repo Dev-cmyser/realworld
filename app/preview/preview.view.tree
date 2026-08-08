@@ -1,54 +1,65 @@
-$realworld_app_preview $mol_view
+$realworld_app_preview $realworld_app_el
+	class_names \article-preview
 	article null
 	sub /
-		<= Meta $mol_view
+		<= Meta $realworld_app_el
+			class_names \article-meta
 			sub /
 				<= Author_pic $realworld_app_link
 					arg *
 						page \profile
 						user <= author \
 					sub /
-						<= Avatar $mol_image
+						<= Avatar $realworld_app_image
 							uri <= author_image \
-							title <= author
-				<= Info $mol_view
+							alt <= author
+				<= Info $realworld_app_el
+					class_names \info
 					sub /
 						<= Author_link $realworld_app_link
+							class_base \author
 							arg *
 								page \profile
 								user <= author
 							sub /
 								<= author
-						<= Date $mol_view
+						<= Date $realworld_app_el
+							dom_name \span
+							class_names \date
 							sub /
 								<= date \
 				<= Favorite $realworld_app_button
+					class_names <= favorite_class \btn btn-outline-primary btn-sm pull-xs-right
 					click? <=> favorite? null
-					active <= favorited false
 					sub /
-						<= Favorite_icon $mol_icon_heart
+						<= Favorite_icon $realworld_app_el
+							dom_name \i
+							class_names \ion-heart
 						<= favorites_count \
 		<= Link $realworld_app_link
+			class_base \preview-link
 			arg *
 				page \article
 				slug <= slug \
 			sub /
-				<= Title $mol_view
+				<= Title $realworld_app_el
 					dom_name \h1
 					sub /
 						<= title \
-				<= Description $mol_view
+				<= Description $realworld_app_el
 					dom_name \p
 					sub /
 						<= description \
-				<= Bottom $mol_view
+				<= More $realworld_app_el
+					dom_name \span
 					sub /
-						<= More $mol_view
-							sub /
-								\Read more...
-						<= Tags $mol_view
-							sub <= tag_pills /
-	Tag* $mol_view
-		dom_name \span
+						\Read more...
+				<= Tags $realworld_app_el
+					dom_name \ul
+					class_names \tag-list
+					sub <= tag_pills /
+	Tag* $realworld_app_el
+		dom_name \li
+		class_names \tag-default tag-pill tag-outline
 		sub /
 			<= tag_name* \

@@ -28,11 +28,20 @@ namespace $.$$ {
 		}
 
 		follow_title() {
-			return `${ this.following() ? 'Unfollow' : 'Follow' } ${ this.author() }`
+			return ` ${ this.following() ? 'Unfollow' : 'Follow' } ${ this.author() }`
 		}
 
 		favorite_title() {
-			return `${ this.favorited() ? 'Unfavorite' : 'Favorite' } Article (${ this.article().favoritesCount })`
+			return this.favorited() ? ' Unfavorite Article ' : ' Favorite Article '
+		}
+
+		favorites_count() {
+			return `(${ this.article().favoritesCount })`
+		}
+
+		/** Conduit fills the heart in by swapping the outline button for a solid one. */
+		override favorite_class() {
+			return this.favorited() ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-outline-primary'
 		}
 
 		override slug() {
@@ -49,7 +58,8 @@ namespace $.$$ {
 		@ $mol_action
 		override delete( next?: any ) {
 			this.$.$realworld_api.article_delete( this.slug() )
-			this.$.$mol_state_arg.go( $realworld_app_route() )
+			this.$.$mol_state_arg.go( $realworld_app_route_clean() )
+			return null
 		}
 
 		@ $mol_action
@@ -57,11 +67,12 @@ namespace $.$$ {
 
 			const api = this.$.$realworld_api
 			if( !api.user() ) {
-				this.$.$mol_state_arg.go( { ... $realworld_app_route(), page: 'login' } )
-				return
+				this.$.$mol_state_arg.go( { ... $realworld_app_route_clean(), page: 'login' } )
+				return null
 			}
 
 			api.follow( this.author(), !this.following() )
+			return null
 		}
 
 		@ $mol_action
@@ -69,11 +80,12 @@ namespace $.$$ {
 
 			const api = this.$.$realworld_api
 			if( !api.user() ) {
-				this.$.$mol_state_arg.go( { ... $realworld_app_route(), page: 'login' } )
-				return
+				this.$.$mol_state_arg.go( { ... $realworld_app_route_clean(), page: 'login' } )
+				return null
 			}
 
 			api.favorite( this.article().slug, !this.favorited() )
+			return null
 		}
 
 	}

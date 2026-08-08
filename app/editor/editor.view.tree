@@ -1,52 +1,78 @@
-$realworld_app_editor $mol_view
+$realworld_app_editor $realworld_app_el
+	class_names \editor-page
 	sub /
-		<= Container $mol_view
+		<= Container $realworld_app_el
+			class_names \container page
 			sub /
-				<= Errors $mol_view
-					dom_name \ul
-					sub <= error_rows /
-				<= Fields $mol_view
+				<= Row $realworld_app_el
+					class_names \row
 					sub /
-						<= Head $mol_string
-							hint \Article Title
-							value? <=> form_title? \
-							attr *
-								^
-								name \title
-						<= About $mol_string
-							hint \What's this article about?
-							value? <=> form_about? \
-							attr *
-								^
-								name \description
-						<= Body $realworld_app_area
-							hint \Write your article (in markdown)
-							value? <=> form_body? \
-							attr *
-								^
-								name \body
-						<= Tag_field $mol_string
-							hint \Enter tags
-							value? <=> tag_draft? \
-							submit? <=> tag_add? null
-							attr *
-								^
-								name \tags
-						<= Tags $mol_view
-							sub <= tag_pills /
-				<= Publish $mol_button_major
-					click? <=> submit? null
-					title <= submit_title \
-	Tag* $mol_view
+						<= Column $realworld_app_el
+							class_names \col-md-10 offset-md-1 col-xs-12
+							sub /
+								<= Errors $realworld_app_el
+									dom_name \ul
+									class_names \error-messages
+									sub <= error_rows /
+								<= Form $realworld_app_form
+									submit? <=> submit? null
+									sub /
+										<= Fields $realworld_app_el
+											dom_name \fieldset
+											sub /
+												<= Head_group $realworld_app_el
+													dom_name \fieldset
+													class_names \form-group
+													sub /
+														<= Head $realworld_app_input
+															class_names \form-control form-control-lg
+															name \title
+															hint \Article Title
+															value? <=> form_title? \
+												<= About_group $realworld_app_el
+													dom_name \fieldset
+													class_names \form-group
+													sub /
+														<= About $realworld_app_input
+															name \description
+															hint \What's this article about?
+															value? <=> form_about? \
+												<= Body_group $realworld_app_el
+													dom_name \fieldset
+													class_names \form-group
+													sub /
+														<= Body $realworld_app_area
+															name \body
+															hint \Write your article (in markdown)
+															value? <=> form_body? \
+												<= Tag_group $realworld_app_el
+													dom_name \fieldset
+													class_names \form-group
+													sub /
+														<= Tag_field $realworld_app_editor_tags
+															hint \Enter tags
+															value? <=> tag_draft? \
+															enter? <=> tag_add? null
+														<= Tags $realworld_app_el
+															class_names \tag-list
+															sub <= tag_pills /
+												<= Publish $realworld_app_button
+													class_names \btn btn-lg pull-xs-right btn-primary
+													type \submit
+													sub /
+														<= submit_title \
+	Tag* $realworld_app_el
 		dom_name \span
+		class_names \tag-default tag-pill
 		sub /
-			<= Tag_remove* $realworld_app_button
-				click? <=> tag_remove*? null
-				hint \Remove tag
-				sub /
-					<= Tag_remove_icon* $mol_icon_close
+			<= Tag_remove* $realworld_app_el
+				dom_name \i
+				class_names \ion-close-round
+				event *
+					^
+					click? <=> tag_remove*? null
 			<= tag_name* \
-	Error* $mol_view
+	Error* $realworld_app_el
 		dom_name \li
 		sub /
 			<= error_text* \

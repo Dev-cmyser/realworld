@@ -1,52 +1,92 @@
-$realworld_app_nav $mol_view
+$realworld_app_nav $realworld_app_el
 	dom_name \nav
+	class_names \navbar navbar-light
 	sub /
-		<= Inner $mol_view
+		<= Container $realworld_app_el
+			class_names \container
 			sub /
 				<= Brand $realworld_app_link
+					class_base \navbar-brand
 					arg *
 					sub /
 						\conduit
-				<= Menu $mol_view
+				<= Menu $realworld_app_el
+					dom_name \ul
+					class_names \nav navbar-nav pull-xs-right
 					sub <= menu /
-	Home_link $realworld_app_link
-		arg *
-		active <= home_active false
+	Home_item $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			\Home
-	Signin_link $realworld_app_link
-		arg *
-			page \login
-		active <= signin_active false
+			<= Home_link $realworld_app_link
+				class_base \nav-link
+				active <= home_active false
+				arg *
+				sub /
+					\Home
+	Signin_item $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			\Sign in
-	Signup_link $realworld_app_link
-		arg *
-			page \register
-		active <= signup_active false
+			<= Signin_link $realworld_app_link
+				class_base \nav-link
+				active <= signin_active false
+				arg *
+					page \login
+				sub /
+					\Sign in
+	Signup_item $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			\Sign up
-	Editor_link $realworld_app_link
-		arg *
-			page \editor
-		active <= editor_active false
+			<= Signup_link $realworld_app_link
+				class_base \nav-link
+				active <= signup_active false
+				arg *
+					page \register
+				sub /
+					\Sign up
+	Editor_item $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			<= Editor_icon $mol_icon_plus
-			\ New Article
-	Settings_link $realworld_app_link
-		arg *
-			page \settings
-		active <= settings_active false
+			<= Editor_link $realworld_app_link
+				class_base \nav-link
+				active <= editor_active false
+				arg *
+					page \editor
+				sub /
+					<= Editor_icon $realworld_app_el
+						dom_name \i
+						class_names \ion-compose
+					\ New Article
+	Settings_item $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			<= Settings_icon $mol_icon_settings
-			\ Settings
-	Profile_link $realworld_app_link
-		arg *
-			page \profile
-			user <= username \
-		active <= profile_active false
+			<= Settings_link $realworld_app_link
+				class_base \nav-link
+				active <= settings_active false
+				arg *
+					page \settings
+				sub /
+					<= Settings_icon $realworld_app_el
+						dom_name \i
+						class_names \ion-gear-a
+					\ Settings
+	Profile_item $realworld_app_el
+		dom_name \li
+		class_names \nav-item
 		sub /
-			<= Avatar $mol_image
-				uri <= avatar \
-				title <= username
-			<= username
+			<= Profile_link $realworld_app_link
+				class_base \nav-link
+				active <= profile_active false
+				arg *
+					page \profile
+					user <= username \
+				sub /
+					<= Avatar $realworld_app_image
+						class_names \user-pic
+						uri <= avatar \
+						alt <= username
+					<= username

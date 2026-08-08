@@ -98,9 +98,24 @@ namespace $ {
 			return 'https://api.realworld.show/api'
 		}
 
-		/** JWT of the signed in user, persisted between sessions. */
-		static token( next?: string | null ) {
-			return this.$.$mol_state_local.value< string >( 'jwtToken', next ) ?? null
+		/**
+		 * JWT of the signed in user.
+		 *
+		 * Stored raw under the key the spec names, not JSON encoded: the e2e suite
+		 * plants and reads `localStorage.jwtToken` itself and expects the bare token
+		 * there, so a wrapper of any kind would be a different contract.
+		 */
+		@ $mol_mem
+		static token( next?: string | null ): string | null {
+
+			const store = $mol_dom_context.localStorage
+
+			if( next === undefined ) return store?.getItem( 'jwtToken' ) ?? null
+
+			if( next === null ) store?.removeItem( 'jwtToken' )
+			else store?.setItem( 'jwtToken', next )
+
+			return next
 		}
 
 		/** Options applied to every request. Override to change auth or headers. */

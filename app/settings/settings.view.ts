@@ -68,13 +68,13 @@ namespace $.$$ {
 
 			this.errors( [] )
 			this.password( '' )
-			this.$.$mol_state_arg.go( { ... $realworld_app_route(), page: 'profile', user: patch.username ?? null } )
+			this.$.$mol_state_arg.go( { ... $realworld_app_route_clean(), page: 'profile', user: patch.username ?? null } )
 		}
 
 		@ $mol_action
 		override logout( next?: any ) {
 			this.$.$realworld_api.logout()
-			this.$.$mol_state_arg.go( $realworld_app_route() )
+			this.$.$mol_state_arg.go( $realworld_app_route_clean() )
 		}
 
 	}

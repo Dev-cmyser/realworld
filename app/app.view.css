@@ -1,0 +1,27 @@
+/*
+	Everything else in this app is styled by conduit.css, the shared theme.
+	What is left here is the seam between that theme and $mol.
+
+	Raw CSS rather than app.view.css.ts because these rules are keyed on $mol's own
+	markers, which the typed style DSL addresses by component instead.
+*/
+
+/* $mol sizes its root to the viewport and imposes a font on it. Conduit lays the
+   page out from `app-root` downwards and picks the font on `body`. */
+app-root[mol_view_root] {
+	width: auto;
+	height: auto;
+	font: inherit;
+}
+
+/* $mol marks a suspended element and paints it through the `mol_view` attribute
+   these elements deliberately do not carry, so the indication is redone here. */
+[mol_view_error='Promise'],
+[mol_view_error='$mol_promise_blocker'] {
+	opacity: 0.5;
+}
+
+[mol_view_error]:not([mol_view_error='Promise'], [mol_view_error='$mol_promise_blocker']) {
+	white-space: pre-wrap;
+	color: var(--danger);
+}

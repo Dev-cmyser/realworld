@@ -1,55 +1,88 @@
-$realworld_app_settings $mol_view
+$realworld_app_settings $realworld_app_el
+	class_names \settings-page
 	sub /
-		<= Container $mol_view
+		<= Container $realworld_app_el
+			class_names \container page
 			sub /
-				<= Title $mol_view
-					dom_name \h1
+				<= Row $realworld_app_el
+					class_names \row
 					sub /
-						\Your Settings
-				<= Errors $mol_view
-					dom_name \ul
-					sub <= error_rows /
-				<= Fields $mol_view
-					sub /
-						<= Image $mol_string
-							hint \URL of profile picture
-							value? <=> image? \
-							attr *
-								^
-								name \image
-						<= Username $mol_string
-							hint \Username
-							value? <=> username? \
-							attr *
-								^
-								name \username
-						<= Bio $realworld_app_area
-							hint \Short bio about you
-							value? <=> bio? \
-							attr *
-								^
-								name \bio
-						<= Email $mol_string
-							hint \Email
-							value? <=> email? \
-							attr *
-								^
-								name \email
-						<= Password $mol_string
-							hint \New Password
-							type \password
-							value? <=> password? \
-							attr *
-								^
-								name \password
-				<= Submit $mol_button_major
-					click? <=> submit? null
-					title \Update Settings
-				<= Divider $mol_view
-				<= Logout $mol_button_minor
-					click? <=> logout? null
-					title \Or click here to logout.
-	Error* $mol_view
+						<= Column $realworld_app_el
+							class_names \col-md-6 offset-md-3 col-xs-12
+							sub /
+								<= Title $realworld_app_el
+									dom_name \h1
+									class_names \text-xs-center
+									sub /
+										\Your Settings
+								<= Errors $realworld_app_el
+									dom_name \ul
+									class_names \error-messages
+									sub <= error_rows /
+								<= Form $realworld_app_form
+									submit? <=> submit? null
+									sub /
+										<= Fields $realworld_app_el
+											dom_name \fieldset
+											sub /
+												<= Image_group $realworld_app_el
+													dom_name \fieldset
+													class_names \form-group
+													sub /
+														<= Image $realworld_app_input
+															name \image
+															hint \URL of profile picture
+															value? <=> image? \
+												<= Username_group $realworld_app_el
+													dom_name \fieldset
+													class_names \form-group
+													sub /
+														<= Username $realworld_app_input
+															class_names \form-control form-control-lg
+															name \username
+															hint \Your Name
+															value? <=> username? \
+												<= Bio_group $realworld_app_el
+													dom_name \fieldset
+													class_names \form-group
+													sub /
+														<= Bio $realworld_app_area
+															class_names \form-control form-control-lg
+															name \bio
+															hint \Short bio about you
+															value? <=> bio? \
+												<= Email_group $realworld_app_el
+													dom_name \fieldset
+													class_names \form-group
+													sub /
+														<= Email $realworld_app_input
+															class_names \form-control form-control-lg
+															name \email
+															hint \Email
+															value? <=> email? \
+												<= Password_group $realworld_app_el
+													dom_name \fieldset
+													class_names \form-group
+													sub /
+														<= Password $realworld_app_input
+															class_names \form-control form-control-lg
+															name \password
+															type \password
+															hint \New Password
+															value? <=> password? \
+												<= Submit $realworld_app_button
+													class_names \btn btn-lg btn-primary pull-xs-right
+													type \submit
+													sub /
+														\Update Settings
+								<= Divider $realworld_app_el
+									dom_name \hr
+								<= Logout $realworld_app_button
+									class_names \btn btn-outline-danger
+									click? <=> logout? null
+									sub /
+										\Or click here to logout.
+	Error* $realworld_app_el
 		dom_name \li
 		sub /
 			<= error_text* \

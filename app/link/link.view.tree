@@ -1,5 +1,6 @@
 $realworld_app_link $mol_link
 	active false
+	class_base \
 	attr *
 		^
-		realworld_active <= active
+		class <= class_names \

@@ -48,37 +48,55 @@ namespace $.$$ {
 			return articles.map( article => this.Preview( article.slug ) )
 		}
 
+		/** Your Feed stays empty until you follow somebody, so it points at the way out. */
+		@ $mol_mem
+		override empty_note(): readonly ( $mol_view | string )[] {
+			if( this.mode() !== 'following' ) return [ 'No articles are here... yet.' ]
+			return [ 'Your feed is empty. Browse the ', this.Global_link(), ' to find authors to follow.' ]
+		}
+
 		@ $mol_mem_key
 		override article( slug: string ): $realworld_api_article {
 			return this.result().articles.find( article => article.slug === slug )!
 		}
 
+		pages() {
+			return Math.ceil( this.result().articlesCount / this.limit() )
+		}
+
 		@ $mol_mem
-		override page_links(): readonly $mol_view[] {
-			const count = Math.ceil( this.result().articlesCount / this.limit() )
+		override page_items(): readonly $mol_view[] {
+			const count = this.pages()
 			if( count < 2 ) return []
-			return Array.from( { length: count }, ( _, index ) => this.Page_link( index + 1 ) )
+			return Array.from( { length: count }, ( _, index ) => this.Page( index + 1 ) )
 		}
 
 		page_label( num: number ) {
 			return String( num )
 		}
 
-		page_active( num: number ) {
-			return num === this.num()
+		override page_class( num: number ) {
+			return num === this.num() ? 'page-item active' : 'page-item'
 		}
 
 		/** Paging keeps whatever the feed is currently scoped to. */
 		@ $mol_mem_key
-		override page_arg( num: number ): Record< string, string | null > {
+		page_arg( num: number ): Record< string, string | null > {
 			const arg = this.$.$mol_state_arg
 			return {
 				page: arg.value( 'page' ),
+				slug: arg.value( 'slug' ),
 				user: arg.value( 'user' ),
 				tab: arg.value( 'tab' ),
 				tag: arg.value( 'tag' ),
 				num: num === 1 ? null : String( num ),
 			}
+		}
+
+		@ $mol_action
+		override page_go( num: number, next?: any ) {
+			this.$.$mol_state_arg.go( this.page_arg( num ) )
+			return null
 		}
 
 	}

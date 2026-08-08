@@ -11,7 +11,7 @@ namespace $.$$ {
 			return this.$.$realworld_api.article( this.slug() )
 		}
 
-		title() {
+		override title() {
 			return this.article().title
 		}
 
@@ -33,11 +33,6 @@ namespace $.$$ {
 			return this.$.$realworld_api.comments( this.slug() )
 		}
 
-		@ $mol_mem
-		override comment_rows(): readonly $mol_view[] {
-			return this.comments().map( comment => this.Comment( String( comment.id ) ) )
-		}
-
 		@ $mol_mem_key
 		override comment( id: string ): $realworld_api_comment {
 			return this.comments().find( comment => String( comment.id ) === id )!
@@ -53,17 +48,21 @@ namespace $.$$ {
 
 		@ $mol_mem
 		override comment_box(): readonly $mol_view[] {
-			return [ this.user() ? this.Form() : this.Guest_note() ]
+			return [
+				this.user() ? this.Form() : this.Guest_note(),
+				... this.comments().map( comment => this.Comment( String( comment.id ) ) ),
+			]
 		}
 
 		@ $mol_action
 		override post( next?: any ) {
 
 			const text = this.comment_text().trim()
-			if( !text ) return
+			if( !text ) return null
 
 			this.$.$realworld_api.comment_create( this.slug(), text )
 			this.comment_text( '' )
+			return null
 		}
 
 	}

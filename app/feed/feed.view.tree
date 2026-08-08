@@ -1,21 +1,36 @@
-$realworld_app_feed $mol_view
+$realworld_app_feed $realworld_app_el
 	mode \global
 	author \
 	tabs /
 	sub /
-		<= Toggle $mol_view
-			sub <= tabs
-		<= List $mol_list
-			rows <= rows /
-		<= Pages $mol_view
-			sub <= page_links /
+		<= Toggle $realworld_app_el
+			class_names <= toggle_class \feed-toggle
+			sub /
+				<= Tabs $realworld_app_el
+					dom_name \ul
+					class_names \nav nav-pills outline-active
+					sub <= tabs
+		<= List $realworld_app_el
+			sub <= rows /
+		<= Pages $realworld_app_el
+			dom_name \ul
+			class_names \pagination
+			sub <= page_items /
 	Preview* $realworld_app_preview
 		article <= article* null
-	Empty $mol_view
+	Empty $realworld_app_el
+		class_names \empty-feed-message
+		sub <= empty_note /
+	Global_link $realworld_app_link
+		arg *
 		sub /
-			\No articles are here... yet.
-	Page_link* $realworld_app_link
-		arg <= page_arg* *
-		active <= page_active* false
+			\Global Feed
+	Page* $realworld_app_el
+		dom_name \li
+		class_names <= page_class* \page-item
 		sub /
-			<= page_label* \
+			<= Page_button* $realworld_app_button
+				class_names \page-link
+				click? <=> page_go*? null
+				sub /
+					<= page_label* \

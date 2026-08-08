@@ -1,0 +1,7 @@
+- Plain element with a class. The shared Conduit stylesheet does the styling,
+- so nothing else is declared here.
+$realworld_app_el $mol_view
+	dom_name \div
+	attr *
+		^
+		class <= class_names \

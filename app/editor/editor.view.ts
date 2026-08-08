@@ -102,7 +102,7 @@ namespace $.$$ {
 
 			this.errors( [] )
 			// Editing the title changes the slug, so navigate to whatever came back.
-			this.$.$mol_state_arg.go( { ... $realworld_app_route(), page: 'article', slug: article.slug } )
+			this.$.$mol_state_arg.go( { ... $realworld_app_route_clean(), page: 'article', slug: article.slug } )
 		}
 
 	}

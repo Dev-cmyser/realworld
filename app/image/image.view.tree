@@ -1,0 +1,9 @@
+- Avatars, which the test contract reads straight off the `src` attribute.
+$realworld_app_image $realworld_app_el
+	dom_name \img
+	uri \
+	alt \
+	attr *
+		^
+		src <= uri
+		alt <= alt

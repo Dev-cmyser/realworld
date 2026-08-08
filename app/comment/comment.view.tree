@@ -1,36 +1,48 @@
-$realworld_app_comment $mol_view
+$realworld_app_comment $realworld_app_el
+	class_names \card
 	comment null
 	slug \
-	Delete $realworld_app_button
-		click? <=> delete? null
-		hint \Delete comment
-		sub /
-			<= Delete_icon $mol_icon_trash_can
 	sub /
-		<= Body $mol_view
+		<= Body $realworld_app_el
+			class_names \card-block
 			sub /
-				<= Text $mol_view
+				<= Text $realworld_app_el
 					dom_name \p
+					class_names \card-text
 					sub /
 						<= body \
-		<= Foot $mol_view
+		<= Foot $realworld_app_el
+			class_names \card-footer
 			sub /
 				<= Author_pic $realworld_app_link
+					class_base \comment-author
 					arg *
 						page \profile
 						user <= author \
 					sub /
-						<= Avatar $mol_image
+						<= Avatar $realworld_app_image
+							class_names \comment-author-img
 							uri <= author_image \
-							title <= author
+							alt <= author
 				<= Author_link $realworld_app_link
+					class_base \comment-author
 					arg *
 						page \profile
 						user <= author
 					sub /
 						<= author
-				<= Date $mol_view
+				<= Date $realworld_app_el
+					dom_name \span
+					class_names \date-posted
 					sub /
 						<= date \
-				<= Actions $mol_view
+				<= Actions $realworld_app_el
+					dom_name \span
+					class_names \mod-options
 					sub <= actions /
+	Delete $realworld_app_el
+		dom_name \i
+		class_names \ion-trash-a
+		event *
+			^
+			click? <=> delete? null
