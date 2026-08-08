@@ -17,6 +17,12 @@ namespace $.$$ {
 			return paragraph
 		}
 
+		override Header( index: number ) {
+			const header = super.Header( index )
+			header.dom_name = () => 'h' + Math.min( 6, Math.max( 1, header.level() ) )
+			return header
+		}
+
 	}
 
 }

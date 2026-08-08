@@ -1,5 +1,5 @@
 $realworld_app_editor_tags $realworld_app_input
-	enter? null
+	add? null
 	event *
 		^
-		keydown? <=> event_enter? null
+		keydown? <=> event_add? null

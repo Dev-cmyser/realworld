@@ -52,7 +52,7 @@ $realworld_app_editor $realworld_app_el
 														<= Tag_field $realworld_app_editor_tags
 															hint \Enter tags
 															value? <=> tag_draft? \
-															enter? <=> tag_add? null
+															add? <=> tag_add? null
 														<= Tags $realworld_app_el
 															class_names \tag-list
 															sub <= tag_pills /

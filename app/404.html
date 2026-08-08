@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Conduit</title>
+		<script>
+			// GitHub Pages serves this page for any address it has no file for, which
+			// on a single page app means every deep link. Bounce back to the app with
+			// the original address parked in the query; the router unpacks it there
+			// and puts the real address back before anything renders.
+			//
+			// `depth` is how many path segments the app is mounted under: 0 at a site
+			// root, 1 for a project page like /mol-realworld/.
+			var depth = 1
+
+			var l = window.location
+			var root = l.pathname.split( '/' ).slice( 0, 1 + depth ).join( '/' )
+			var rest = l.pathname.slice( 1 ).split( '/' ).slice( depth ).join( '/' )
+
+			l.replace(
+				l.origin + root + '/?/'
+					+ rest.replace( /&/g, '~and~' )
+					+ ( l.search ? '&' + l.search.slice( 1 ).replace( /&/g, '~and~' ) : '' )
+					+ l.hash
+			)
+		</script>
+	</head>
+	<body></body>
+</html>

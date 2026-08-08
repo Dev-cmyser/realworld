@@ -7,10 +7,10 @@ namespace $.$$ {
 	export class $realworld_app_editor_tags extends $.$realworld_app_editor_tags {
 
 		@ $mol_action
-		override event_enter( next?: KeyboardEvent ) {
+		override event_add( next?: KeyboardEvent ) {
 			if( next?.key !== 'Enter' ) return null
 			next.preventDefault()
-			this.enter( null )
+			this.add( null )
 			return null
 		}
 

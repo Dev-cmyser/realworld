@@ -11,7 +11,10 @@ namespace $.$$ {
 		}
 
 		override feed_mode() {
-			return this.tab() === 'following' ? 'following' : 'global'
+			if( this.tab() !== 'following' ) return 'global'
+			// A signed out visitor is on the way to the sign in form; asking the API for
+			// their feed in the meantime only answers with an error.
+			return this.$.$realworld_api.user() ? 'following' : 'global'
 		}
 
 		@ $mol_mem
@@ -55,8 +58,12 @@ namespace $.$$ {
 		guard() {
 			if( this.tab() !== 'following' ) return null
 			if( this.$.$realworld_api.user() ) return null
-			$mol_wire_async( this ).sign_in()
-			return null
+			// Changing the address mid render leaves the page half drawn: the model moves
+			// on to the sign in form while the DOM keeps the feed. Waiting a tick lets
+			// this render finish and the next one start from the new address. A frame is
+			// no good here — a background tab never paints, and the jump would never happen.
+			// The timer is the value of the cell so that it outlives the calculation.
+			return new $mol_after_tick( () => $mol_wire_async( this ).sign_in() )
 		}
 
 		@ $mol_action

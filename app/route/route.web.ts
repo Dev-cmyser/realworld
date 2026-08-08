@@ -113,9 +113,11 @@ namespace $ {
 		}
 
 		/**
-		 * Undo the GitHub Pages `404.html` bounce: it turns `/mount/article/x` into
-		 * `/mount/?/article/x`, which is the only way that host can hand a deep link
-		 * to a single page app.
+		 * Undo the deep link bounce: a host that cannot rewrite unknown paths sends
+		 * `/mount/article/x` to `/mount/?/article/x` instead, parking the address in
+		 * the query where the page — which always loads from the mount — can read it.
+		 * The path and the original query are joined by `&`, and any real `&` inside
+		 * travels as `~and~`. See `404.html`.
 		 */
 		@ $mol_action
 		static restore() {
@@ -123,8 +125,8 @@ namespace $ {
 			const search = $mol_dom.location.search
 			if( search.length < 2 || search[1] !== '/' ) return
 
-			const [ path, ... rest ] = search.slice( 2 ).replace( /~and~/g, '&' ).split( '?' )
-			const link = this.mount + path + ( rest.length ? '?' + rest.join( '?' ) : '' )
+			const address = search.slice( 2 ).split( '&' ).map( part => part.replace( /~and~/g, '&' ) ).join( '?' )
+			const link = this.mount + address + $mol_dom.location.hash
 
 			$mol_dom.history.replaceState( null, '', link )
 			this.href( link )
